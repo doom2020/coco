@@ -42,6 +42,8 @@ class CodeType(object):
             self.code = code
             self.message = message
 
+    # 成功响应码
+    SUCCESS_RESPONSE = CodeMessage(code=200, message='')
     # 参数相关响应码
     ARGV_IS_BLANK = CodeMessage(code=1000, message='argv is blank')
     ARGV_STR_TYPE_ERROR = CodeMessage(code=1101, message='argv is not str type')
@@ -59,7 +61,6 @@ class CodeType(object):
     # 数据库相关响应码
 
     # 通用响应码
-    
 
 
 
