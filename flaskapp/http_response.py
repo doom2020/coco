@@ -59,6 +59,7 @@ class CodeType(object):
     # 数据库相关响应码
 
     # 通用响应码
+    
 
 
 
