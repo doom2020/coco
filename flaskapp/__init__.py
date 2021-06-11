@@ -1,5 +1,9 @@
 from flask import Flask
 from flaskapp import config
+from flaskapp.app_log import LoggerHelp
+
+# 初始化日志实例 
+log = LoggerHelp()
 
 def create_app(debug_mode=False):
     app = Flask(__name__)
@@ -13,5 +17,6 @@ def create_app(debug_mode=False):
     from flaskapp.v1.index import views
     # 注册蓝图
     app.register_blueprint(views.index_bp)
+    log.write('app is run', level='exception')
     return app
     
