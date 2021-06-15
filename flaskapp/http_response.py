@@ -1,6 +1,25 @@
 import json
 
 
+class CreateResponse(object):
+    def __init__(self, cm, result={}, message=''):
+        self.cm = cm
+        self.result = result
+        self.message = message
+
+    def response(self):
+        if self.cm == CodeType.SUCCESS_RESPONSE:
+            success = True
+        else:
+            success = False
+        if self.message:
+            hr = HttpResponse(code=self.cm.code, success=success, result=self.result, message=self.message)
+        else:
+            hr = HttpResponse(code=self.cm.code, success=success, result=self.result, message=self.cm.message)
+        return hr.to_dict()
+            
+
+
 class HttpResponse:
     def __init__(self, code=200, success=True, result={}, message=''):
         self.code = code
@@ -10,22 +29,14 @@ class HttpResponse:
 
     def to_dict(self):
         return json.dumps(self.__dict__)
-    
-# if __name__ == "__main__":
-#     hr = HttpResponse()
-#     hr.to_dict()
 
-
-# class CodeMessage(object):
-#     def __init__(self, code=100, message=''):
-#         self.code = code
-#         self.message = message
 
 
 
 class CodeType(object):
     """
     响应状态码规则
+    -------------------------
     参数校验(1000 ~ 1999)
     1000 通用参数错误(参数为空)
     1100 字符类型校验(1101~1199)
@@ -35,6 +46,8 @@ class CodeType(object):
     1500 字典类型校验(1501~1599)
     1600 图片类型校验(1601~1699)
     1700 文件类型校验(1701~1799)
+    --------------------------
+    数据库相关(2000 ~ 2999)
     """
 
     class CodeMessage(object):

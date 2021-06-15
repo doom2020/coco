@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask.json import jsonify
 from flaskapp.param_check import ParamCheck
+from flaskapp.http_response import CreateResponse
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/v1/api')
@@ -15,15 +16,15 @@ def index_view():
     param_check.params_add('height', required=True, p_type='float', err_msg='')
     param_check.params_add('like', required=True, p_type='list', err_msg='')
     param_check.params_add('info', required=True, p_type='dict', err_msg='')
-    flag, ret = param_check.params_parser()
+    flag, cm, msg = param_check.params_parser()
     if not flag:
-        return jsonify(ret)
+        return CreateResponse(cm, message=msg).response()
     name = param_check.get_argv('name')
     age = param_check.get_argv('age')
     height = param_check.get_argv('height')
     like = param_check.get_argv('like')
     info = param_check.get_argv('info')
     # 逻辑处理
-
+    
     # 正常响应
     return jsonify(code=200, success=True, result={}, message='')
