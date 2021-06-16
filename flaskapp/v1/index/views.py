@@ -4,10 +4,10 @@ from flaskapp.param_check import ParamCheck
 from flaskapp.http_response import CreateResponse
 
 
-index_bp = Blueprint('index_api', __name__, url_prefix='/v1/api')
+index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
 
 
-@index_bp.route('/', methods=['POST'])
+@index_bp.route('/', methods=['GET'])
 def index_view():
     # 参数校验
     param_check = ParamCheck()
@@ -25,6 +25,6 @@ def index_view():
     like = param_check.get_argv('like')
     info = param_check.get_argv('info')
     # 逻辑处理
-    
+    ret = dict(name=name, age=age, height=height, like=like, info=info)
     # 正常响应
-    return jsonify(code=200, success=True, result={}, message='')
+    return jsonify(ret)
