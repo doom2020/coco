@@ -1,6 +1,8 @@
 from flask import Flask
 from flaskapp import config
 from flaskapp.app_log import LoggerHelp
+import pymysql
+pymysql.install_as_MySQLdb()
 from flask_sqlalchemy import SQLAlchemy
 
 # 初始化日志实例 
@@ -19,6 +21,8 @@ def create_app(debug_mode=False):
     
     # 初始化
     db.init_app(app)
+    with app.app_context():
+        db.create_all(bind='users')
     # 导入视图
     from flaskapp.v1.index import views
     # 注册蓝图
