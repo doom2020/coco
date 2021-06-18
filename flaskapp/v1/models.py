@@ -1,4 +1,3 @@
-from enum import unique
 from flaskapp import db
 from flaskapp.enumeration import GenderEnum, PermissionEnum
 
@@ -20,6 +19,14 @@ class HouseOwner(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
+
     def __str__(self):
         return self.nick_name
 
@@ -40,6 +47,14 @@ class Tenant(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
+
     def __str__(self):
         return self.nick_name
 
@@ -51,6 +66,14 @@ class User(db.Model):
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
+
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
 
     def __str__(self):
         return self.user_name
@@ -64,6 +87,14 @@ class Role(db.Model):
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
+
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
 
     def __str__(self):
         return self.role_name
@@ -79,6 +110,14 @@ class Menu(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
+
     def __str__(self):
         return self.menu_name
 
@@ -91,6 +130,14 @@ class UserRole(db.Model):
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
+
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
 
     def __str__(self):
         return self.id
@@ -105,12 +152,18 @@ class RoleMenu(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
+    @classmethod
+    def to_dict(cls):
+        ret_dict = dict()
+        for key, value in cls.__dict__.items():
+            if '__' not in key and key != 'to_dict':
+                ret_dict[key] = value
+        return ret_dict
+
     def __str__(self):
         return self.id
 
 
-if __name__ == "__main__":
-    db.create_all(bind='users')
 
 
 
