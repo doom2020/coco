@@ -20,13 +20,34 @@ def create_app(debug_mode=False):
         app.config.from_object(config.ProductionConfig)
     
     # 初始化
+    from flaskapp.v1.models import HouseOwner, Tenant, User, Role, Menu, UserRole, RoleMenu
     db.init_app(app)
+    # 创建表or删除表
     with app.app_context():
-        db.create_all(bind='users')
+        pass
+        # 创建所有
+        # db.create_all()
+        # 删除所有
+        # db.drop_all()
+        # 创建指定表
+        # db.create_all(bind=['users'])
     # 导入视图
     from flaskapp.v1.index import views
     # 注册蓝图
     app.register_blueprint(views.index_bp)
     log.write('App is running', level='info')
     return app
+
+
+def create_all_table():
+    db.create_all(bind='__all__')
+
+def drop_all_table():
+    db.drop_all(bind='__all__')
+
+def create_target_table(database_names=[]):
+    db.create_all(bind=database_names)
+
+def drop_target_table(database_names=[]):
+    db.drop_all(bind=database_names)
     
