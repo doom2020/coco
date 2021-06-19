@@ -10,3 +10,11 @@ class PermissionEnum(Enum):
     modify = 2
     add = 3
     delete = 4
+
+class RegisterEnum(Enum):
+    house_owner = 1
+    tenant = 2
+    user = 9
+
+if __name__ == "__main__":
+    print(RegisterEnum.__dict__.keys())
