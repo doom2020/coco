@@ -60,7 +60,9 @@ class CodeType(object):
     # 参数相关响应码
     ARGV_IS_BLANK = CodeMessage(code=1000, message='argv is blank')
     ARGV_STR_TYPE_ERROR = CodeMessage(code=1101, message='argv is not str type')
+    ARGV_STR_INVALID_ERROR = CodeMessage(code=1102, message='argv is invalid')
     ARGV_INT_TYPE_ERROR = CodeMessage(code=1201, message='argv is not int type')
+    ARGV_INT_INVALID_ERROR = CodeMessage(code=1202, message='argv is invalid')
     ARGV_FLOAT_TYPE_ERROR = CodeMessage(code=1301, message='argv is not float type')
     ARGV_LIST_TYPE_ERROR = CodeMessage(code=1401, message='argv is not list type')
     ARGV_LIST_INVALID_ERROR = CodeMessage(code=1402, message='argv is invalid')
