@@ -1,7 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, send_file
 from flask.json import jsonify
 from flaskapp.param_check import ParamCheck
 from flaskapp.http_response import CreateResponse
+from flaskapp.settings import *
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
@@ -28,3 +29,8 @@ def index_view():
     ret = dict(name=name, age=age, height=height, like=like, info=info)
     # 正常响应
     return jsonify(ret)
+
+@index_bp.route('/get_img', methods=['GET'])
+def image_test():
+    img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
+    return send_file(img)
