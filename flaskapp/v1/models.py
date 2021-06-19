@@ -37,6 +37,7 @@ class Tenant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(64), unique=False)
     nick_name = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    password = db.Column(db.String(2048), nullable=False)
     phone = db.Column(db.String(32), unique=True, nullable=False, index=True)
     wechat = db.Column(db.String(128), unique=True, nullable=True, default='')
     id_card = db.Column(db.String(64), unique=True, nullable=False, index=True)
@@ -63,6 +64,8 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(64), unique=True, index=True)
+    password = db.Column(db.String(2048), nullable=False)
+    picture = db.Column(db.String(64), unique=False, nullable=False, default='/')
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
