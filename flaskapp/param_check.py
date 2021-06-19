@@ -2,6 +2,7 @@ from flask import request
 from flaskapp.http_response import CodeType
 import ast
 import traceback
+from flaskapp.enumeration import *
 
 
 class ParamCheck(object):
@@ -202,6 +203,25 @@ class ParamCheck(object):
     
     def get_argv(self, argv):
         return self.parser_args.get(argv)
+
+class SpecialCheck(object):
+    def __init__(self, argv, err_msg=''):
+        self.argv = argv
+        self.err_msg = err_msg
+        self.flag = False
+
+
+    def check_register_type(self):
+        value_set = set()
+        for key, value in RegisterEnum.__dict__.items():
+            if key[0] != '_':
+                value_set.add(value)
+        if self.argv not in value_set:
+            return self.flag, CodeType.ARGV_INT_INVALID_ERROR, self.err_msg
+        self.flag = True
+        return self.flag, CodeType.SUCCESS_RESPONSE, ''
+                
+            
 
     
 
