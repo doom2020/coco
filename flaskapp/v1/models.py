@@ -74,7 +74,7 @@ class User(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if '__' not in key and key != 'to_dict':
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
@@ -95,7 +95,7 @@ class Role(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if '__' not in key and key != 'to_dict':
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
@@ -117,7 +117,7 @@ class Menu(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if '__' not in key and key != 'to_dict':
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
@@ -138,7 +138,7 @@ class UserRole(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if '__' not in key and key != 'to_dict':
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
@@ -159,7 +159,7 @@ class RoleMenu(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if '__' not in key and key != 'to_dict':
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
