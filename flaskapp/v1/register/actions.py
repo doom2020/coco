@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import KeysView
 from flaskapp.v1.models import HouseOwner, User
 from flaskapp.enumeration import RegisterEnum
 
