@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from flaskapp.mysql_query import MysqlQuery
 from flaskapp.v1.models import HouseOwner, User
 from flaskapp.enumeration import RegisterEnum
 
@@ -41,8 +42,6 @@ class UserRegisterHandler(RegisterHandler):
         user_name = kwargs['user_name']
         password = kwargs['password']
         picture = kwargs['picture']
-
-        User.query.all()
 
 class RegisterFactory(object):
     @classmethod
