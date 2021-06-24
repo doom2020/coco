@@ -42,13 +42,14 @@ class UserRegisterHandler(RegisterHandler):
         password = kwargs['password']
         picture = kwargs['picture']
 
+        User.query.all()
 
 class RegisterFactory(object):
     @classmethod
-    def deal_with_register(self, register_type):
-        if self.register_type == RegisterEnum.house_owner.value:
+    def deal_with_register(cls, register_type):
+        if register_type == RegisterEnum.house_owner.value:
             return HouseOwnerRegisterHandler()
-        elif self.register_type == RegisterEnum.tenant.value:
+        elif register_type == RegisterEnum.tenant.value:
             return TenantRegisterHandler()
-        elif self.register_type == RegisterEnum.user.value:
+        elif register_type == RegisterEnum.user.value:
             return UserRegisterHandler()
