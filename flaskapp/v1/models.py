@@ -23,7 +23,7 @@ class HouseOwner(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if not key.startswith():
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
@@ -52,7 +52,7 @@ class Tenant(db.Model):
     def to_dict(cls):
         ret_dict = dict()
         for key, value in cls.__dict__.items():
-            if not key.startswith():
+            if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
