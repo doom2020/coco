@@ -30,6 +30,7 @@ def index_view():
     # 正常响应
     return jsonify(ret)
 
+
 @index_bp.route('/get_img', methods=['GET'])
 def image_test():
     img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')

@@ -204,12 +204,12 @@ class ParamCheck(object):
     def get_argv(self, argv):
         return self.parser_args.get(argv)
 
+
 class SpecialCheck(object):
     def __init__(self, argv, err_msg=''):
         self.argv = argv
         self.err_msg = err_msg
         self.flag = False
-
 
     def check_register_type(self):
         value_set = set()

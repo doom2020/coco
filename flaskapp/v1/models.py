@@ -59,6 +59,7 @@ class Tenant(db.Model):
     def __str__(self):
         return self.nick_name
 
+
 class User(db.Model):
     __bind_key__ = 'users'
     __tablename__ = 'user'
@@ -124,6 +125,7 @@ class Menu(db.Model):
     def __str__(self):
         return self.menu_name
 
+
 class UserRole(db.Model):
     __bind_key__ = 'users'
     __tablename__ = 'user_role'
@@ -145,6 +147,7 @@ class UserRole(db.Model):
     def __str__(self):
         return self.id
 
+
 class RoleMenu(db.Model):
     __bind_key__ = 'users'
     __tablename__ = 'role_menu'
@@ -165,13 +168,3 @@ class RoleMenu(db.Model):
 
     def __str__(self):
         return self.id
-
-
-
-
-
-
-
-
-
-    

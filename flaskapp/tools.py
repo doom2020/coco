@@ -1,10 +1,11 @@
 """
 通用工具模块
 """
-import threading
+
 
 class SingleInstance(object):
     _instance = None
+
     def __new__(cls, *args, **kwargs):
         if SingleInstance._instance is None:
             SingleInstance._instance = super().__new__(cls)
@@ -30,8 +31,3 @@ class Pagination(object):
     def page_result(self):
         data_set = self.query_set[(self.page_num - 1) * self.limit: (self.page_num *self.limit)]
         return data_set
-
-
-
-
-    

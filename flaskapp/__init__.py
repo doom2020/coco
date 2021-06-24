@@ -10,6 +10,7 @@ log = LoggerHelp()
 
 db = SQLAlchemy()
 
+
 def create_app(debug_mode=False):
     app = Flask(__name__)
     if debug_mode:
@@ -42,12 +43,14 @@ def create_app(debug_mode=False):
 def create_all_table():
     db.create_all(bind='__all__')
 
+
 def drop_all_table():
     db.drop_all(bind='__all__')
+
 
 def create_target_table(database_names=[]):
     db.create_all(bind=database_names)
 
+
 def drop_target_table(database_names=[]):
     db.drop_all(bind=database_names)
-    

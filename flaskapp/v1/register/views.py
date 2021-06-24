@@ -1,4 +1,3 @@
-import flaskapp
 from flaskapp.v1.register.actions import RegisterFactory
 from flaskapp.http_response import CreateResponse
 from flaskapp.param_check import ParamCheck, SpecialCheck
@@ -6,8 +5,8 @@ from flask import Blueprint
 from flaskapp.enumeration import RegisterEnum
 
 
-
 register_bp = Blueprint('register_api', __name__, url_prefix='/api/v1')
+
 
 @register_bp.route('/register', methods=['POST'])
 def register_view():
@@ -54,7 +53,7 @@ def register_view():
         id_card = param_check.get_argv('id_card')
         gender = param_check.get_argv('gender')
         # 逻辑处理
-        kwargs = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name,\
-            phone=phone, wechat=wechat, id_card=id_card, gender=gender)
+        kwargs = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name,
+                      phone=phone, wechat=wechat, id_card=id_card, gender=gender)
         register_factory = RegisterFactory.dealwith_register(register_type).register(kwargs)
 

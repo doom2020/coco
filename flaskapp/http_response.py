@@ -19,7 +19,6 @@ class CreateResponse(object):
         return hr.to_dict()
             
 
-
 class HttpResponse:
     def __init__(self, code=200, success=True, result={}, message=''):
         self.code = code
@@ -29,8 +28,6 @@ class HttpResponse:
 
     def to_dict(self):
         return json.dumps(self.__dict__)
-
-
 
 
 class CodeType(object):

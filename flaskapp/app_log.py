@@ -7,7 +7,7 @@ from flaskapp.tools import SingleInstance
 from flaskapp.settings import LOG_PATH, LOG_FILE
 
 
-class LoggerHelp(object):
+class LoggerHelp(SingleInstance):
     def __init__(self):
         self.logger = logger
         if not os.path.exists(LOG_PATH):
@@ -29,10 +29,6 @@ class LoggerHelp(object):
             self.logger.error(message)
 
 
-
 if __name__ == "__main__":
     log = LoggerHelp()
     log.write("hello", level='debug')
-
-
-        

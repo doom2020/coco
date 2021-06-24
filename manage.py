@@ -8,4 +8,3 @@ from flaskapp import create_app
 if __name__ == "__main__":
     app = create_app(DEBUG_MODE)
     app.run(host=SERVER_IP, port=SERVER_PORT, debug=DEBUG_MODE)
-   

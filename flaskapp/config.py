@@ -1,11 +1,11 @@
-from re import DEBUG
+"""
+通用配置(flask内置配置)
+"""
 
 
 class Config(object):
     pass
-"""
-通用配置(flask内置配置)
-"""
+
 
 class DevelopmentConfig(Config):
     ENV = 'development'
@@ -22,6 +22,7 @@ class ProductionConfig(Config):
     ENV = 'production'
     DEBUG = False
     SECRET_KEY = 'pro'
+
 
 class TestingConfig(Config):
     ENV = 'development'

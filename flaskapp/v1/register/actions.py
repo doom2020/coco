@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from flaskapp.v1.models import HouseOwner, User
 from flaskapp.enumeration import RegisterEnum
 
+
 class RegisterHandler(metaclass=ABCMeta):
     @abstractmethod
     def register(self, *args, **kwargs):
@@ -41,9 +42,10 @@ class UserRegisterHandler(RegisterHandler):
         password = kwargs['password']
         picture = kwargs['picture']
 
+
 class RegisterFactory(object):
     @classmethod
-    def dealwith_register(self, register_type):
+    def deal_with_register(self, register_type):
         if self.register_type == RegisterEnum.house_owner.value:
             return HouseOwnerRegisterHandler()
         elif self.register_type == RegisterEnum.tenant.value:
