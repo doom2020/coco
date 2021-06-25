@@ -32,6 +32,7 @@ def create_app(debug_mode=False):
         # db.drop_all()
         # 创建指定表
         # db.create_all(bind=['users'])
+        # log.write('创建表成功', level='warning')
     # 导入视图
     from flaskapp.v1.index import views
     # 注册蓝图

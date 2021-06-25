@@ -1,8 +1,11 @@
+from flaskapp.app_log import LoggerHelp
 from flask import Blueprint, send_file
 from flask.json import jsonify
 from flaskapp.param_check import ParamCheck
 from flaskapp.http_response import CreateResponse
 from flaskapp.settings import *
+from flaskapp.v1.models import User
+from flaskapp import log
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
@@ -33,5 +36,8 @@ def index_view():
 
 @index_bp.route('/get_img', methods=['GET'])
 def image_test():
-    img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
-    return send_file(img)
+    # img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
+    # return send_file(img)
+    result = User.query.all()[0]
+    print(result.to_dict())
+    return 'hello'
