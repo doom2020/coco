@@ -19,16 +19,15 @@ class HouseOwner(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
-        return self.nick_name
+        return self.id
 
 
 class Tenant(db.Model):
@@ -48,16 +47,15 @@ class Tenant(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
-        return self.nick_name
+        return self.id
 
 
 class User(db.Model):
@@ -71,16 +69,15 @@ class User(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
-        return self.user_name
+        return self.id
 
 
 class Role(db.Model):
@@ -92,16 +89,15 @@ class Role(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
-        return self.role_name
+        return self.id
 
 
 class Menu(db.Model):
@@ -114,16 +110,15 @@ class Menu(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
-        return self.menu_name
+        return self.id
 
 
 class UserRole(db.Model):
@@ -136,10 +131,9 @@ class UserRole(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
@@ -158,10 +152,9 @@ class RoleMenu(db.Model):
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
 
-    @classmethod
-    def to_dict(cls):
+    def to_dict(self):
         ret_dict = dict()
-        for key, value in cls.__dict__.items():
+        for key, value in self.__dict__.items():
             if not key.startswith('_'):
                 ret_dict[key] = value
         return ret_dict
