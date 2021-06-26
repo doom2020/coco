@@ -2,22 +2,22 @@ from enum import Enum
 
 
 class GenderEnum(Enum):
-    man = 1
-    woman = 2
-    unknown = 3
+    man = 'man'
+    woman = 'woman'
+    unknown = 'unknown'
 
 
 class PermissionEnum(Enum):
-    read = 1
-    modify = 2
-    add = 3
-    delete = 4
+    read = 'read'
+    modify = 'modify'
+    add = 'add'
+    delete = 'delete'
 
 
 class RegisterEnum(Enum):
-    house_owner = 1
-    tenant = 2
-    user = 9
+    house_owner = 'house_owner'
+    tenant = 'tenant'
+    user = 'user'
 
 
 if __name__ == "__main__":
