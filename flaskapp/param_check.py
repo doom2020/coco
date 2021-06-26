@@ -214,7 +214,7 @@ class SpecialCheck(object):
     def check_register_type(self):
         value_set = set()
         for key, value in RegisterEnum.__dict__.items():
-            if key[0] != '_':
+            if not key.startswith('_'):
                 value_set.add(value)
         if self.argv not in value_set:
             return self.flag, CodeType.ARGV_INT_INVALID_ERROR, self.err_msg

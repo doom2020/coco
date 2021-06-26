@@ -45,6 +45,8 @@ class CodeType(object):
     1700 文件类型校验(1701~1799)
     --------------------------
     数据库相关(2000 ~ 2999)
+    --------------------------
+    工具类相关(3000 ~ 3999)
     """
 
     class CodeMessage(object):
@@ -71,6 +73,14 @@ class CodeType(object):
     ARGV_FILE_INVALID_ERROR = CodeMessage(code=1702, message='argv is invalid file')
 
     # 数据库相关响应码
+    DATABASE_ADD_ERROR = CodeMessage(code=2101, message='database add failed')
+    DATABASE_QUERY_BLANK = CodeMessage(code=2201, message='database query is blank')
+    DATABASE_QUERY_MANY = CodeMessage(code=2202, message='database query result not only one')
+    DATABASE_QUERY_EXIST = CodeMessage(code=2203, message='database query result is exist')
+
+    # 工具类相关响应码
+    TOOL_ENCRYPT_STR_BLANK = CodeMessage(code=3101, message='encrypt str is blank')
+    TOOL_ENCRYPT_STR_TYPE_ERROR = CodeMessage(code=3102, message='encrypt argv type is not str')
 
     # 通用响应码
 
