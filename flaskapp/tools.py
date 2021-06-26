@@ -3,9 +3,20 @@
 """
 from flaskapp.settings import ENCRYPT_KEY
 from flaskapp.http_response import CodeType
-import hashlib, base64
+import hashlib, base64, functools
 
 
+
+def decorator_app(text=None):
+    """
+    装饰器函数用来判断用户是否在登录状态
+    """
+    def decorator(func):
+        @functools.wraps(func)
+        def wrap(*args, **kwargs):
+            return func(*args, **kwargs)
+        return wrap
+    return decorator
 
 class SingleInstance(object):
     _instance = None
