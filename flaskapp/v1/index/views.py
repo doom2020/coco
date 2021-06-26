@@ -1,11 +1,11 @@
 from flaskapp.app_log import LoggerHelp
-from flask import Blueprint, send_file
-from flask.json import jsonify
+from flask import Blueprint, send_file, jsonify
 from flaskapp.param_check import ParamCheck
-from flaskapp.http_response import CreateResponse
+from flaskapp.http_response import CodeType, CreateResponse
 from flaskapp.settings import *
-from flaskapp.v1.models import User
-from flaskapp import log
+from flaskapp.v1.models import HouseOwner, Tenant, User
+from flaskapp import create_app, log, db
+from datetime import datetime
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
@@ -34,10 +34,73 @@ def index_view():
     return jsonify(ret)
 
 
-@index_bp.route('/get_img', methods=['GET'])
-def image_test():
-    # img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
-    # return send_file(img)
-    result = User.query.all()[0]
-    print(result.to_dict())
-    return 'hello'
+@index_bp.route('/test_img', methods=['GET'])
+def test_image():
+    img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
+    return send_file(img)
+
+@index_bp.route('/test_add_house_owner', methods=['GET'])
+def test_add_house_owner():
+    user_name = 'hu'
+    nick_name = 'bo'
+    password = '123456'
+    phone = '13207123556'
+    wechat = ''
+    id_card = '430333199307015364'
+    gender = 'woman'
+    picture = '/hu'
+    update_time = create_time = datetime.now()
+    new_house_owner = HouseOwner(user_name=user_name, nick_name=nick_name, password=password, phone=phone,
+                                 wechat=wechat, id_card=id_card, gender=gender, picture=picture,
+                                 create_time=create_time, update_time=update_time)
+    try:
+        db.session.add(new_house_owner)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        log.write(f'<new add failed> - err_info: {e}', level='error')
+        return 'error'
+    log.write('new add success', level='info')
+    return 'success'
+
+@index_bp.route('/test_add_tenant', methods=['GET'])
+def test_add_tenant():
+    user_name = 'hu'
+    nick_name = 'bo'
+    password = '123456'
+    phone = '13207123556'
+    wechat = ''
+    id_card = '430333199307015364'
+    gender = 'woman'
+    picture = '/hu'
+    update_time = create_time = datetime.now()
+    new_house_owner = Tenant(user_name=user_name, nick_name=nick_name, password=password, phone=phone,
+                             wechat=wechat, id_card=id_card, gender=gender, picture=picture,
+                             create_time=create_time, update_time=update_time)
+    try:
+        db.session.add(new_house_owner)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        log.write(f'<new add failed> - err_info: {e}', level='error')
+        return 'error'
+    log.write('new add success', level='info')
+    return 'success'
+
+@index_bp.route('/test_add_user', methods=['GET'])
+def test_add_user():
+    user_name = 'rui'
+    password = '123456'
+    picture = '/rui'
+    update_time = create_time = datetime.now()
+    new_user = User(user_name=user_name, password=password, picture=picture, create_time=create_time,
+                    update_time=update_time)
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        log.write(f'<new add failed> - err_info: {e}', level='error')
+        return 'error'
+    log.write('new add success', level='info')
+    return 'success'
