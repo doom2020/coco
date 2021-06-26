@@ -14,4 +14,6 @@ SERVER_PORT = 5000 if DEBUG_MODE else 8000
 
 IMAGE_PATH = os.path.join(os.getcwd(), 'flaskapp', 'static', 'image') if DEBUG_MODE else '/var/image'
 
+ENCRYPT_KEY = '-9=-6fhbcmzsawt$#jnd897*()&^%hjfnvf>'
+
 

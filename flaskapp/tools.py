@@ -1,6 +1,10 @@
 """
 通用工具模块
 """
+from flaskapp.settings import ENCRYPT_KEY
+from flaskapp.http_response import CodeType
+import hashlib
+
 
 
 class SingleInstance(object):
@@ -31,3 +35,15 @@ class Pagination(object):
     def page_result(self):
         data_set = self.query_set[(self.page_num - 1) * self.limit: (self.page_num *self.limit)]
         return data_set
+
+class Tools(object):
+
+    @classmethod
+    def encrypt_str(char):
+        if not char:
+            return False, CodeType.TOOL_ENCRYPT_STR_BLANK
+        if not isinstance(char, str):
+            return False, CodeType.TOOL_ENCRYPT_STR_TYPE_ERROR
+        new_char = char + ENCRYPT_KEY
+        encrypt_char = hashlib.sha256(new_char.encode("utf-8")).hexdigest()
+        return True, encrypt_char
