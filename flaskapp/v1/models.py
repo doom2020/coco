@@ -10,9 +10,9 @@ class HouseOwner(db.Model):
     nick_name = db.Column(db.String(64), unique=True, nullable=False, index=True)
     password = db.Column(db.String(2048), nullable=False)
     phone = db.Column(db.String(32), unique=True, nullable=False, index=True)
-    wechat = db.Column(db.String(128), unique=True, nullable=True, default='')
+    wechat = db.Column(db.String(128), unique=False, nullable=True, default='')
     id_card = db.Column(db.String(64), unique=True, nullable=False, index=True)
-    gender = db.Column(db.Enum(GenderEnum), nullable=False, default=1)
+    gender = db.Column(db.Enum(GenderEnum), nullable=False, default=GenderEnum.man)
     score = db.Column(db.DECIMAL(5, 2), nullable=False, default=100.00)
     picture = db.Column(db.String(64), unique=False, nullable=False, default='/')
     create_time = db.Column(db.DateTime, nullable=False)
@@ -23,7 +23,10 @@ class HouseOwner(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -38,9 +41,9 @@ class Tenant(db.Model):
     nick_name = db.Column(db.String(64), unique=True, nullable=False, index=True)
     password = db.Column(db.String(2048), nullable=False)
     phone = db.Column(db.String(32), unique=True, nullable=False, index=True)
-    wechat = db.Column(db.String(128), unique=True, nullable=True, default='')
+    wechat = db.Column(db.String(128), unique=False, nullable=True, default='')
     id_card = db.Column(db.String(64), unique=True, nullable=False, index=True)
-    gender = db.Column(db.Enum(GenderEnum), nullable=False, default=1)
+    gender = db.Column(db.Enum(GenderEnum), nullable=False, default=GenderEnum.man)
     score = db.Column(db.DECIMAL(5, 2), nullable=False, default=100.00)
     picture = db.Column(db.String(64), unique=False, nullable=False, default='/')
     create_time = db.Column(db.DateTime, nullable=False)
@@ -51,7 +54,10 @@ class Tenant(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -73,7 +79,10 @@ class User(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -93,7 +102,10 @@ class Role(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -105,7 +117,7 @@ class Menu(db.Model):
     __tablename__ = 'Menu'
     id = db.Column(db.Integer, primary_key=True)
     menu_name = db.Column(db.String(32))
-    permission = db.Column(db.Enum(PermissionEnum), nullable=False, default=1)
+    permission = db.Column(db.Enum(PermissionEnum), nullable=False, default=PermissionEnum.read)
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
@@ -114,7 +126,10 @@ class Menu(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -135,7 +150,10 @@ class UserRole(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
@@ -156,7 +174,10 @@ class RoleMenu(db.Model):
         ret_dict = dict()
         for key, value in self.__dict__.items():
             if not key.startswith('_'):
-                ret_dict[key] = value
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
         return ret_dict
 
     def __str__(self):
