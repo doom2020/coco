@@ -2,8 +2,8 @@ from flask import Flask
 from flaskapp import config
 from flaskapp.app_log import LoggerHelp
 import pymysql
-pymysql.install_as_MySQLdb()
 from flask_sqlalchemy import SQLAlchemy
+pymysql.install_as_MySQLdb()
 
 # 初始化日志实例 
 log = LoggerHelp()

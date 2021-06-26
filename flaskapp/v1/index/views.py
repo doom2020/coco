@@ -39,6 +39,7 @@ def test_image():
     img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
     return send_file(img)
 
+
 @index_bp.route('/test_add_house_owner', methods=['GET'])
 def test_add_house_owner():
     user_name = 'hu'
@@ -63,6 +64,7 @@ def test_add_house_owner():
     log.write('new add success', level='info')
     return 'success'
 
+
 @index_bp.route('/test_add_tenant', methods=['GET'])
 def test_add_tenant():
     user_name = 'hu'
@@ -86,6 +88,7 @@ def test_add_tenant():
         return 'error'
     log.write('new add success', level='info')
     return 'success'
+
 
 @index_bp.route('/test_add_user', methods=['GET'])
 def test_add_user():

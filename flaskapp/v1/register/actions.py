@@ -6,7 +6,7 @@ from flaskapp.mysql_query import MysqlQuery
 from flaskapp.v1.models import HouseOwner, Tenant, User
 from flaskapp.enumeration import RegisterEnum
 from datetime import datetime
-from flaskapp.app_log import log
+from flaskapp import log
 from flaskapp import db
 
 
@@ -31,6 +31,7 @@ class RegisterHandler(metaclass=ABCMeta):
 class HouseOwnerRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
         pass
+
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
 
@@ -73,11 +74,11 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         flag, ret = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture, create_time, update_time)
         return flag, ret
         
-        
 
 class TenantRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
         pass
+
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
 
@@ -125,6 +126,7 @@ class TenantRegisterHandler(RegisterHandler):
 class UserRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
         pass
+
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
 
@@ -159,6 +161,7 @@ class UserRegisterHandler(RegisterHandler):
         # 数据写入
         flag, ret = self.add(user_name, encrypt_pwd, picture, create_time, update_time)
         return flag, ret
+
 
 class RegisterFactory(object):
     @classmethod

@@ -3,8 +3,9 @@
 """
 from flaskapp.settings import ENCRYPT_KEY
 from flaskapp.http_response import CodeType
-import hashlib, base64, functools
-
+import hashlib
+import base64
+import functools
 
 
 def decorator_app(text=None):
@@ -17,6 +18,7 @@ def decorator_app(text=None):
             return func(*args, **kwargs)
         return wrap
     return decorator
+
 
 class SingleInstance(object):
     _instance = None
@@ -47,10 +49,11 @@ class Pagination(object):
         data_set = self.query_set[(self.page_num - 1) * self.limit: (self.page_num *self.limit)]
         return data_set
 
+
 class Tools(object):
 
     @classmethod
-    def encrypt_str(char):
+    def encrypt_str(cls, char):
         if not char:
             return False, CodeType.TOOL_ENCRYPT_STR_BLANK
         if not isinstance(char, str):
