@@ -3,7 +3,7 @@
 """
 from flaskapp.settings import ENCRYPT_KEY
 from flaskapp.http_response import CodeType
-import hashlib
+import hashlib, base64
 
 
 
@@ -46,4 +46,5 @@ class Tools(object):
             return False, CodeType.TOOL_ENCRYPT_STR_TYPE_ERROR
         new_char = char + ENCRYPT_KEY
         encrypt_char = hashlib.sha256(new_char.encode("utf-8")).hexdigest()
+        encrypt_char = base64.b64encode(encrypt_char.encode('utf-8')).decode('utf-8')
         return True, encrypt_char
