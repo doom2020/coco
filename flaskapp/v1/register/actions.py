@@ -30,7 +30,8 @@ class RegisterHandler(metaclass=ABCMeta):
 
 class HouseOwnerRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
-        pass
+        flag, ret = False, False
+        return flag, ret
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -45,7 +46,7 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         except Exception as e:
             db.session.rollback()
             log.write(f'<add new_house_owner failed> - err_info: {e}', level='error')
-            return False, CodeType.DATABASE_ADD_ERROR, 'add new_hourse_owner failed'
+            return False, CodeType.DATABASE_ADD_ERROR, 'add new_house_owner failed'
         log.write('add new_house_owner success', level='info')
         return True, CodeType.SUCCESS_RESPONSE, ''
 
@@ -71,13 +72,16 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         else:
             encrypt_pwd = ret
         # 数据写入
-        flag, ret = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture, create_time, update_time)
-        return flag, ret
+        flag, ret, msg = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture,
+                                  create_time, update_time)
+        return flag, ret, msg
         
 
 class TenantRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
         pass
+        flag, ret = True, True
+        return flag, ret
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -118,14 +122,16 @@ class TenantRegisterHandler(RegisterHandler):
         else:
             encrypt_pwd = ret
         # 数据写入
-        flag, ret = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture,
-                             create_time, update_time)
+        flag, ret, msg = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture,
+                                  create_time, update_time)
         return flag, ret
 
 
 class UserRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
         pass
+        flag, ret = True, True
+        return flag, ret
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -159,8 +165,8 @@ class UserRegisterHandler(RegisterHandler):
         else:
             encrypt_pwd = ret
         # 数据写入
-        flag, ret = self.add(user_name, encrypt_pwd, picture, create_time, update_time)
-        return flag, ret
+        flag, ret, msg = self.add(user_name, encrypt_pwd, picture, create_time, update_time)
+        return flag, ret, msg
 
 
 class RegisterFactory(object):
