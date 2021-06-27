@@ -3,16 +3,22 @@ from flaskapp.http_response import CreateResponse
 from flaskapp.param_check import ParamCheck, SpecialCheck
 from flask import Blueprint
 from flaskapp.enumeration import RegisterEnum
+from flask import request
 
 
 register_bp = Blueprint('register_api', __name__, url_prefix='/api/v1')
 
+@register_bp.before_request
+def filter_content_type():
+    content_type = request.content_type
+    if content_type != 'application/json':
+        return f'content_type error: need (application/json) but get: ({content_type})'
 
 @register_bp.route('/register', methods=['POST'])
 def register_view():
     # 注册类型参数校验
     param_check = ParamCheck()
-    param_check.params_add('register_type', required=True, p_type='int', err_msg='register_type is error')
+    param_check.params_add('register_type', required=True, p_type='str', err_msg='register_type is error')
     flag, cm, msg = param_check.params_parser()
     if not flag:
         return CreateResponse(cm, message=msg).response()
@@ -34,14 +40,14 @@ def register_view():
         picture = param_check.get_argv('picture')
         # 逻辑处理
         kwargs = dict(user_name=user_name, password=password, picture=picture)
-        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(kwargs)
+        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**kwargs)
         return CreateResponse(cm, message=msg).response()
     else:
         param_check.params_add('nick_name', required=True, p_type='str', err_msg='')
         param_check.params_add('phone', required=True, p_type='str', err_msg='')
         param_check.params_add('wechat', required=False, p_type='str', err_msg='')
         param_check.params_add('id_card', required=True, p_type='str', err_msg='')
-        param_check.params_add('gender', required=False, p_type='int', err_msg='')
+        param_check.params_add('gender', required=False, p_type='str', err_msg='')
         flag, cm, msg = param_check.params_parser()
         if not flag:
             return CreateResponse(cm, message=msg).response()
@@ -53,9 +59,13 @@ def register_view():
         wechat = param_check.get_argv('wechat')
         id_card = param_check.get_argv('id_card')
         gender = param_check.get_argv('gender')
+        # 性别参数特殊校验
+        flag, cm, msg = SpecialCheck(gender, err_msg='gender type is invalid').check_gender_type()
+        if not flag:
+            return CreateResponse(cm, message=msg).response()
         # 逻辑处理
         kwargs = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name,
                       phone=phone, wechat=wechat, id_card=id_card, gender=gender)
-        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(kwargs)
+        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**kwargs)
         return CreateResponse(cm, message=msg).response()
 

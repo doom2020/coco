@@ -63,7 +63,7 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
         and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        objs = self.query(HouseOwner, dict(and_filter_condition=and_filter_condition))
+        objs = self.query(HouseOwner, **dict(and_filter_condition=and_filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -113,7 +113,7 @@ class TenantRegisterHandler(RegisterHandler):
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
         and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        objs = self.query(Tenant, dict(and_filter_condition=and_filter_condition))
+        objs = self.query(Tenant, **dict(and_filter_condition=and_filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -156,7 +156,7 @@ class UserRegisterHandler(RegisterHandler):
         update_time = create_time = datetime.now()
         # 数据库查询`user_name`是否已经存在
         and_filter_condition = dict(user_name=user_name, is_delete=False)
-        objs = self.query(User, dict(and_filter_condition=and_filter_condition))
+        objs = self.query(User, **dict(and_filter_condition=and_filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密

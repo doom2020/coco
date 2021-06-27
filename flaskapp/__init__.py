@@ -34,9 +34,11 @@ def create_app(debug_mode=False):
         # db.create_all(bind=['users'])
         # log.write('创建表成功', level='warning')
     # 导入视图
-    from flaskapp.v1.index import views
+    from flaskapp.v1.index.views import index_bp
+    from flaskapp.v1.register.views import register_bp
     # 注册蓝图
-    app.register_blueprint(views.index_bp)
+    app.register_blueprint(index_bp)
+    app.register_blueprint(register_bp)
     log.write('App is running', level='info')
     return app
 

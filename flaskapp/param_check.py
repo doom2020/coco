@@ -20,16 +20,23 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             if not isinstance(argv, str):
                 self.all_params_valid = False
-                return CodeType.ARGV_STR_TYPE_ERROR, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
+                return False, CodeType.ARGV_STR_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, str):
                     self.all_params_valid = False
-                    return CodeType.ARGV_STR_TYPE_ERROR, err_msg
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
+                    return False, CodeType.ARGV_STR_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_int(self, argv_info):
         """
@@ -40,16 +47,23 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             if not isinstance(argv, int):
                 self.all_params_valid = False
-                return CodeType.ARGV_INT_TYPE_ERROR, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
+                return False, CodeType.ARGV_INT_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, int):
                     self.all_params_valid = False
-                    return CodeType.ARGV_INT_TYPE_ERROR, err_msg
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
+                    return False, CodeType.ARGV_INT_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_float(self, argv_info):
         """
@@ -60,16 +74,23 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             if not isinstance(argv, float):
                 self.all_params_valid = False
-                return CodeType.ARGV_FLOAT_TYPE_ERROR, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
+                return False, CodeType.ARGV_FLOAT_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, float):
                     self.all_params_valid = False
-                    return CodeType.ARGV_FLOAT_TYPE_ERROR, err_msg
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
+                    return False, CodeType.ARGV_FLOAT_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_list(self, argv_info):
         """
@@ -80,22 +101,29 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             try:
                 argv = ast.literal_eval(argv)
             except Exception as e:
                 print(traceback.format_exc(limit=1))
                 self.all_params_valid = False
-                return CodeType.ARGV_LIST_INVALID_ERROR, err_msg
+                return False, CodeType.ARGV_LIST_INVALID_ERROR, err_msg
             if not isinstance(argv, list):
                 self.all_params_valid = False
-                return CodeType.ARGV_LIST_TYPE_ERROR, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
+                return False, CodeType.ARGV_LIST_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, list):
                     self.all_params_valid = False
-                    return CodeType.ARGV_LIST_TYPE_ERROR, err_msg
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
+                    return False, CodeType.ARGV_LIST_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_dict(self, argv_info):
         """
@@ -106,22 +134,29 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             try:
                 argv = ast.literal_eval(argv)
             except Exception as e:
                 print(traceback.format_exc(limit=1))
                 self.all_params_valid = False
-                return CodeType.ARGV_DICT_INVALID_ERROR, err_msg
+                return False, CodeType.ARGV_DICT_INVALID_ERROR, err_msg
             if not isinstance(argv, dict):
                 self.all_params_valid = False
-                return CodeType.ARGV_DICT_TYPE_ERROR, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
+                return False, CodeType.ARGV_DICT_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, dict):
                     self.all_params_valid = False
-                    return CodeType.ARGV_DICT_TYPE_ERROR, err_msg
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
+                    return False, CodeType.ARGV_DICT_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_image(self, argv_info):
         """
@@ -132,16 +167,19 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             if not isinstance(argv, str):
                 self.all_params_valid = False
-                return CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
+                return False, CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, str):
                     self.all_params_valid = False
-                    return CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
+                    return False, CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def check_file(self, argv_info):
         """
@@ -152,16 +190,19 @@ class ParamCheck(object):
         if required:
             if not argv:
                 self.all_params_valid = False
-                return CodeType.ARGV_IS_BLANK, err_msg
+                if not err_msg:
+                    err_msg = f'the argv: {param} is blank'
+                return False, CodeType.ARGV_IS_BLANK, err_msg
             if not isinstance(argv, str):
                 self.all_params_valid = False
-                return CodeType.ARGV_FILE_TYPE_ERROR, err_msg
+                return False, CodeType.ARGV_FILE_TYPE_ERROR, err_msg
         else:
             if argv:
                 if not isinstance(argv, str):
                     self.all_params_valid = False
-                    return CodeType.ARGV_FILE_TYPE_ERROR, err_msg
+                    return False, CodeType.ARGV_FILE_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
+        return True, '', ''
 
     def params_add(self, param, required=False, p_type=None, err_msg=''):
         self.args.append((param, required, p_type, err_msg))
@@ -172,32 +213,32 @@ class ParamCheck(object):
             for _ in range(len(self.args)):
                 argv_info = self.args.pop()
                 if argv_info[2] == 'str':
-                    cm, msg = self.check_str(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_str(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'int':
-                    cm, msg = self.check_int(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_int(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'float':
-                    cm, msg = self.check_float(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_float(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'list':
-                    cm, msg = self.check_list(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_list(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'dict':
-                    cm, msg = self.check_dict(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_dict(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'image':
-                    cm, msg = self.check_image(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_image(argv_info)
+                    if not flag:
                         break
                 elif argv_info[2] == 'file':
-                    cm, msg = self.check_file(argv_info)
-                    if cm:
+                    flag, cm, msg = self.check_file(argv_info)
+                    if not flag:
                         break
         return self.all_params_valid, cm, msg
     
@@ -213,11 +254,31 @@ class SpecialCheck(object):
 
     def check_register_type(self):
         value_set = set()
-        for key, value in RegisterEnum.__dict__.items():
+        for key in RegisterEnum.__dict__.keys():
             if not key.startswith('_'):
-                value_set.add(value)
+                value_set.add(key)
         if self.argv not in value_set:
-            return self.flag, CodeType.ARGV_INT_INVALID_ERROR, self.err_msg
+            return self.flag, CodeType.ARGV_STR_INVALID_ERROR, self.err_msg
+        self.flag = True
+        return self.flag, CodeType.SUCCESS_RESPONSE, ''
+
+    def check_gender_type(self):
+        value_set = set()
+        for key in GenderEnum.__dict__.keys():
+            if not key.startswith('_'):
+                value_set.add(key)
+        if self.argv not in value_set:
+            return self.flag, CodeType.ARGV_STR_INVALID_ERROR, self.err_msg
+        self.flag = True
+        return self.flag, CodeType.SUCCESS_RESPONSE, ''
+
+    def check_permission_type(self):
+        value_set = set()
+        for key in PermissionEnum.__dict__.keys():
+            if not key.startswith('_'):
+                value_set.add(key)
+        if self.argv not in value_set:
+            return self.flag, CodeType.ARGV_STR_INVALID_ERROR, self.err_msg
         self.flag = True
         return self.flag, CodeType.SUCCESS_RESPONSE, ''
                 

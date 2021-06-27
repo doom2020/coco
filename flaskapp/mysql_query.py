@@ -18,10 +18,10 @@ class MysqlQuery(object):
         字典传参,查询条件
         """
         db_model = args[0]
-        and_filter_condition = kwargs['and_filter_condition']
-        or_filter_condition = kwargs['or_filter_condition']
-        order_by = kwargs['order_by']
-        limit = kwargs['limit']
+        and_filter_condition = kwargs.get('and_filter_condition', {})
+        or_filter_condition = kwargs.get('or_filter_condition', {})
+        order_by = kwargs.get('order_by', '')
+        limit = kwargs.get('limit', '')
         objs = db_model.query.filter_by(**and_filter_condition).all()
         return objs
 
