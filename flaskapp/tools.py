@@ -55,10 +55,10 @@ class Tools(object):
     @classmethod
     def encrypt_str(cls, char):
         if not char:
-            return False, CodeType.TOOL_ENCRYPT_STR_BLANK
+            return False, CodeType.TOOL_ENCRYPT_STR_BLANK, ''
         if not isinstance(char, str):
-            return False, CodeType.TOOL_ENCRYPT_STR_TYPE_ERROR
+            return False, CodeType.TOOL_ENCRYPT_STR_TYPE_ERROR, ''
         new_char = char + ENCRYPT_KEY
         encrypt_char = hashlib.sha256(new_char.encode("utf-8")).hexdigest()
         encrypt_char = base64.b64encode(encrypt_char.encode('utf-8')).decode('utf-8')
-        return True, encrypt_char
+        return True, encrypt_char, ''

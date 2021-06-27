@@ -35,6 +35,7 @@ def register_view():
         # 逻辑处理
         kwargs = dict(user_name=user_name, password=password, picture=picture)
         flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(kwargs)
+        return CreateResponse(cm, message=msg).response()
     else:
         param_check.params_add('nick_name', required=True, p_type='str', err_msg='')
         param_check.params_add('phone', required=True, p_type='str', err_msg='')
@@ -56,4 +57,5 @@ def register_view():
         kwargs = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name,
                       phone=phone, wechat=wechat, id_card=id_card, gender=gender)
         flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(kwargs)
+        return CreateResponse(cm, message=msg).response()
 

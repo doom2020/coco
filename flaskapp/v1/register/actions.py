@@ -30,8 +30,8 @@ class RegisterHandler(metaclass=ABCMeta):
 
 class HouseOwnerRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
-        flag, ret = False, False
-        return flag, ret
+        objs = MysqlQuery.query_filter(*args, **kwargs)
+        return objs
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -62,13 +62,14 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        flag, ret = self.query(nick_name, phone, id_card)
-        if not flag:
-            return flag, ret
+        and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
+        objs = self.query(HouseOwner, dict(and_filter_condition=and_filter_condition))
+        if objs:
+            return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
-        flag, ret = self.encrypt(password)
+        flag, ret, msg = self.encrypt(password)
         if not flag:
-            return flag, ret
+            return flag, ret, msg
         else:
             encrypt_pwd = ret
         # 数据写入
@@ -79,9 +80,8 @@ class HouseOwnerRegisterHandler(RegisterHandler):
 
 class TenantRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
-        pass
-        flag, ret = True, True
-        return flag, ret
+        objs = MysqlQuery.query_filter(*args, **kwargs)
+        return objs
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -112,26 +112,26 @@ class TenantRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        flag, ret = self.query(nick_name, phone, id_card)
-        if not flag:
-            return flag, ret
+        and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
+        objs = self.query(Tenant, dict(and_filter_condition=and_filter_condition))
+        if objs:
+            return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
-        flag, ret = self.encrypt(password)
+        flag, ret, msg = self.encrypt(password)
         if not flag:
-            return flag, ret
+            return flag, ret, msg
         else:
             encrypt_pwd = ret
         # 数据写入
         flag, ret, msg = self.add(user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture,
                                   create_time, update_time)
-        return flag, ret
+        return flag, ret, msg
 
 
 class UserRegisterHandler(RegisterHandler):
     def query(self, *args, **kwargs):
-        pass
-        flag, ret = True, True
-        return flag, ret
+        objs = MysqlQuery.query_filter(*args, **kwargs)
+        return objs
 
     def encrypt(self, *args, **kwargs):
         return Tools.encrypt_str(args[0])
@@ -154,14 +154,15 @@ class UserRegisterHandler(RegisterHandler):
         password = kwargs['password']
         picture = kwargs['picture']
         update_time = create_time = datetime.now()
-        # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        flag, ret = self.query(user_name)
-        if not flag:
-            return flag, ret
+        # 数据库查询`user_name`是否已经存在
+        and_filter_condition = dict(user_name=user_name, is_delete=False)
+        objs = self.query(User, dict(and_filter_condition=and_filter_condition))
+        if objs:
+            return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
-        flag, ret = self.encrypt(password)
+        flag, ret, msg = self.encrypt(password)
         if not flag:
-            return flag, ret
+            return flag, ret, msg
         else:
             encrypt_pwd = ret
         # 数据写入
