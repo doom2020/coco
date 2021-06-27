@@ -1,3 +1,4 @@
+from flaskapp.enumeration import GenderEnum, PermissionEnum, RegisterEnum
 from flaskapp.app_log import LoggerHelp
 from flask import Blueprint, send_file, jsonify
 from flaskapp.param_check import ParamCheck
@@ -11,6 +12,8 @@ from datetime import datetime
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
 
 
+"""*****************功能测试api接口**********************"""
+# 首页请求测试
 @index_bp.route('/', methods=['GET'])
 def index_view():
     # 参数校验
@@ -33,12 +36,38 @@ def index_view():
     # 正常响应
     return jsonify(ret)
 
+"""****************图片测试api接口**********************"""
 
 @index_bp.route('/test_img', methods=['GET'])
 def test_image():
     img = os.path.join(IMAGE_PATH, 'user', 'u_default.png')
     return send_file(img)
 
+img_format = 'http://127.0.0.1:5000/api/v1/get_user_img/u_default'
+
+@index_bp.route('/get_house_owner_img/<string:img_name>')
+def get_house_owner_img(img_name):
+    img = os.path.join(HOUSE_OWNER_IMAGE_PATH, img_name + '.png')
+    if not os.path.exists(img):
+        return CreateResponse(CodeType.IMAGE_FILE_IS_NOT_EXIST, message=f'the img: {img} is not exist').response()
+    return send_file(img)
+
+@index_bp.route('/get_house_owner_img/<string:img_name>')
+def get_tenant_img(img_name):
+    img = os.path.join(TENANT_IMAGE_PATH, img_name + '.png')
+    if not os.path.exists(img):
+        return CreateResponse(CodeType.IMAGE_FILE_IS_NOT_EXIST, message=f'the img: {img} is not exist').response()
+    return send_file(img)
+
+@index_bp.route('/get_user_img/<string:img_name>')
+def get_user_img(img_name):
+    img = os.path.join(USER_IMAGE_PATH, img_name + '.png')
+    if not os.path.exists(img):
+        return CreateResponse(CodeType.IMAGE_FILE_IS_NOT_EXIST, message=f'the img: {img} is not exist').response()
+    return send_file(img)
+
+
+"""*******************注册功能api接口测试**************************"""
 
 @index_bp.route('/test_add_house_owner', methods=['GET'])
 def test_add_house_owner():
@@ -107,3 +136,32 @@ def test_add_user():
         return 'error'
     log.write('new add success', level='info')
     return 'success'
+
+
+"""***********************通用枚举值api接口**************************"""
+@index_bp.route('/get_permission_types', methods=['GET'])
+def get_permisson_types():
+    permission_set = set()
+    for key in PermissionEnum.__dict__.keys():
+        if not key.startswith('_'):
+            permission_set.add(key)
+    result = dict(permission_set=str(permission_set))
+    return CreateResponse(CodeType.SUCCESS_RESPONSE, result=result).response()
+
+@index_bp.route('/get_gender_types', methods=['GET'])
+def get_gender_types():
+    gender_set = set()
+    for key in GenderEnum.__dict__.keys():
+        if not key.startswith('_'):
+            gender_set.add(key)
+    result = dict(gender_set=str(gender_set))
+    return CreateResponse(CodeType.SUCCESS_RESPONSE, result=result).response()
+
+@index_bp.route('/get_register_types', methods=['GET'])
+def get_register_types():
+    register_set = set()
+    for key in RegisterEnum.__dict__.keys():
+        if not key.startswith('_'):
+            register_set.add(key)
+    result = dict(register_set=str(register_set))
+    return CreateResponse(CodeType.SUCCESS_RESPONSE, result=result).response()
