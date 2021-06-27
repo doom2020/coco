@@ -83,6 +83,6 @@ class CodeType(object):
     TOOL_ENCRYPT_STR_TYPE_ERROR = CodeMessage(code=3102, message='encrypt argv type is not str')
 
     # 通用响应码
-
+    IMAGE_FILE_IS_NOT_EXIST = CodeMessage(code=9101, message='image file is not exist')
 
 
