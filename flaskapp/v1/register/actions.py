@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from sys import argv
 import flaskapp
 from flaskapp.http_response import CodeType
 from flaskapp.tools import Tools
@@ -8,6 +9,11 @@ from flaskapp.enumeration import RegisterEnum
 from datetime import datetime
 from flaskapp import log
 from flaskapp import db
+from hashlib import md5
+from werkzeug.utils import secure_filename
+import os
+from flaskapp.settings import *
+import shutil
 
 
 class RegisterHandler(metaclass=ABCMeta):
@@ -129,6 +135,25 @@ class TenantRegisterHandler(RegisterHandler):
 
 
 class UserRegisterHandler(RegisterHandler):
+    def save_image(img):
+        flag, img_name = True, ''
+        try:
+            img_suffix = img.filename.split('.')[-1]
+            now = str(datetime.now())
+            img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
+            img.save(os.path.join(USER_IMAGE_PATH, img_name))
+        except Exception as e:
+            flag = False
+        return flag, img_name
+    
+    def remove_image(img):
+        flag = True
+        try:
+            shutil.rmtree(img)
+        except Exception as e:
+            flag = False
+        return flag
+
     def query(self, *args, **kwargs):
         objs = MysqlQuery.query_filter(*args, **kwargs)
         return objs
@@ -137,13 +162,22 @@ class UserRegisterHandler(RegisterHandler):
         return Tools.encrypt_str(args[0])
 
     def add(self, *args, **kwargs):
-        new_user = User(user_name=args[0], password=args[1], picture=args[2], create_time=args[3], update_time=args[4])
+        img = args[2]
+        flag, img_name = self.save_image(img)
+        if not flag:
+            return False, CodeType.IMAGE_SAVE_FAILED, ''
+        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_user_img/{img_name}'
+        new_user = User(user_name=args[0], password=args[1], picture=img_url, create_time=args[3], update_time=args[4])
         try:
             db.session.add(new_user)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
             log.write(f'<add new_user failed> - err_info: {e}', level='error')
+            img = os.path.join(USER_IMAGE_PATH, img_name)
+            flag = self.remove_image(img)
+            if not flag:
+                log.write('remove image failed', level='error')
             return False, CodeType.DATABASE_ADD_ERROR, 'add new_user failed'
         log.write('add new_user success', level='info')
         return True, CodeType.SUCCESS_RESPONSE, ''

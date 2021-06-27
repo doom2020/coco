@@ -1,3 +1,5 @@
+from sys import path
+from flaskapp.settings import ALLOW_FILE_EXTENSIONS, ALLOW_IMAGE_EXTENSIONS
 from flask import request
 from flaskapp.http_response import CodeType
 import ast
@@ -163,20 +165,30 @@ class ParamCheck(object):
         图片校验(待完成)
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = request.files.get(param, '')
+        try:
+            file_name = argv.filename
+        except AttributeError as e:
+            if not err_msg:
+                err_msg = f'the argv: {param} is not file'
+            return False, CodeType.ARGV_IS_NOT_FILE, err_msg
         if required:
             if not argv:
                 self.all_params_valid = False
                 if not err_msg:
                     err_msg = f'the argv: {param} is blank'
                 return False, CodeType.ARGV_IS_BLANK, err_msg
-            if not isinstance(argv, str):
+            if file_name.split('.')[-1] not in ALLOW_IMAGE_EXTENSIONS:
                 self.all_params_valid = False
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
                 return False, CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
         else:
             if argv:
-                if not isinstance(argv, str):
+                if file_name.split('.')[-1] not in ALLOW_IMAGE_EXTENSIONS:
                     self.all_params_valid = False
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
                     return False, CodeType.ARGV_IMAGE_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
         return True, '', ''
@@ -186,20 +198,30 @@ class ParamCheck(object):
         文件校验(待完成)
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = request.files.get(param, '')
+        try:
+            file_name = argv.filename
+        except AttributeError as e:
+            if not err_msg:
+                err_msg = f'the argv: {param} is not file'
+            return False, CodeType.ARGV_IS_NOT_FILE, err_msg
         if required:
             if not argv:
                 self.all_params_valid = False
                 if not err_msg:
                     err_msg = f'the argv: {param} is blank'
                 return False, CodeType.ARGV_IS_BLANK, err_msg
-            if not isinstance(argv, str):
+            if file_name.split('.')[-1] not in ALLOW_FILE_EXTENSIONS:
                 self.all_params_valid = False
+                if not err_msg:
+                    err_msg = f'the argv: {param} type is error'
                 return False, CodeType.ARGV_FILE_TYPE_ERROR, err_msg
         else:
             if argv:
-                if not isinstance(argv, str):
+                if file_name.split('.')[-1] not in ALLOW_FILE_EXTENSIONS:
                     self.all_params_valid = False
+                    if not err_msg:
+                        err_msg = f'the argv: {param} type is error'
                     return False, CodeType.ARGV_FILE_TYPE_ERROR, err_msg
         self.parser_args[param] = argv
         return True, '', ''

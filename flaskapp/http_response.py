@@ -84,5 +84,6 @@ class CodeType(object):
 
     # 通用响应码
     IMAGE_FILE_IS_NOT_EXIST = CodeMessage(code=9101, message='image file is not exist')
-
+    ARGV_IS_NOT_FILE = CodeMessage(code=9102, message='argv is not file')
+    IMAGE_SAVE_FAILED = CodeMessage(code=9103, message='image save is failed')
 

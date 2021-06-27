@@ -35,6 +35,11 @@ USER_IMAGE_PATH = os.path.join(IMAGE_PATH, 'user')
 if not os.path.exists(USER_IMAGE_PATH):
     os.makedirs(USER_IMAGE_PATH)
 
+# 文件目录
+FILE_PATH = os.path.join(os.getcwd(), 'flaskapp', 'static', 'files') if DEBUG_MODE else '/var/files'
+if not os.path.exists(FILE_PATH):
+    os.makedirs(FILE_PATH)
+
 # 加密的秘钥
 ENCRYPT_KEY = '-9=-6fhbcmzsawt$#jnd897*()&^%hjfnvf>'
 

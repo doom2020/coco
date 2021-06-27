@@ -1,3 +1,5 @@
+from werkzeug.utils import secure_filename
+from flaskapp import param_check
 from flaskapp.enumeration import GenderEnum, PermissionEnum, RegisterEnum
 from flaskapp.app_log import LoggerHelp
 from flask import Blueprint, send_file, jsonify
@@ -7,6 +9,7 @@ from flaskapp.settings import *
 from flaskapp.v1.models import HouseOwner, Tenant, User
 from flaskapp import create_app, log, db
 from datetime import datetime
+from hashlib import md5
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
@@ -165,3 +168,33 @@ def get_register_types():
             register_set.add(key)
     result = dict(register_set=str(register_set))
     return CreateResponse(CodeType.SUCCESS_RESPONSE, result=result).response()
+
+# 图片上传测试
+@index_bp.route('/upload_image', methods=['POST'])
+def upload_image():
+    param_check = ParamCheck()
+    param_check.params_add('image', required=True, p_type='image',err_msg='')
+    flag, cm, msg = param_check.params_parser()
+    if not flag:
+        return CreateResponse(cm, message=msg).response()
+    img = param_check.parser_args.get('image')
+    img_suffix = img.filename.split('.')[-1]
+    now = str(datetime.now())
+    img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
+    img.save(os.path.join(USER_IMAGE_PATH, img_name))
+    return img_name
+
+# 文件上传测试
+@index_bp.route('/upload_file', methods=['POST'])
+def upload_file():
+    param_check = ParamCheck()
+    param_check.params_add('file', required=True, p_type='file', err_msg='')
+    flag, cm, msg = param_check.params_parser()
+    if not flag:
+        return CreateResponse(cm, message=msg).response()
+    file = param_check.parser_args.get('file')
+    file_suffix = file.filename.split('.')[-1]
+    now = str(datetime.now())
+    file_name = md5(secure_filename(file.filename + now).encode('utf-8')).hexdigest() + '.' + file_suffix
+    file.save(os.path.join(FILE_PATH, file_name))
+    return file_name
