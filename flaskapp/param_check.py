@@ -1,4 +1,4 @@
-from sys import path
+from flaskapp.app_log import LoggerHelp
 from flaskapp.settings import ALLOW_FILE_EXTENSIONS, ALLOW_IMAGE_EXTENSIONS
 from flask import request
 from flaskapp.http_response import CodeType
@@ -12,13 +12,25 @@ class ParamCheck(object):
         self.args = []
         self.parser_args = {}
         self.all_params_valid = True
+        self.content_type = request.content_type
+    
+    def get_argv_by_content_type(self, param):
+        if self.content_type == 'application/json':
+            argv = request.get_json(silent=True).get(param, '')
+        elif 'multipart/form-data' in self.content_type:
+            argv = request.form.get(param, '')
+        else:
+            argv = request.values.get(param, '')
+        return argv
 
     def check_str(self, argv_info):
         """
         字符串类型校验
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = self.get_argv_by_content_type(param)
+        # argv = request.values.get(param)
+        # argv = request.form[param]
         if required:
             if not argv:
                 self.all_params_valid = False
@@ -45,7 +57,8 @@ class ParamCheck(object):
         整数类型校验
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = self.get_argv_by_content_type(param)
+        # argv = request.values.get(param)
         if required:
             if not argv:
                 self.all_params_valid = False
@@ -72,7 +85,8 @@ class ParamCheck(object):
         浮点类型校验
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = self.get_argv_by_content_type(param)
+        # argv = request.values.get(param)
         if required:
             if not argv:
                 self.all_params_valid = False
@@ -99,7 +113,8 @@ class ParamCheck(object):
         列表类型校验
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = self.get_argv_by_content_type(param)
+        # argv = request.values.get(param)
         if required:
             if not argv:
                 self.all_params_valid = False
@@ -132,7 +147,8 @@ class ParamCheck(object):
         字典类型校验
         """
         param, required, p_type, err_msg = argv_info
-        argv = request.get_json(silent=True).get(param, '')
+        argv = self.get_argv_by_content_type(param)
+        # argv = request.values.get(param)
         if required:
             if not argv:
                 self.all_params_valid = False
