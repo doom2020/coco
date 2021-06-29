@@ -135,7 +135,7 @@ class TenantRegisterHandler(RegisterHandler):
 
 
 class UserRegisterHandler(RegisterHandler):
-    def save_image(img):
+    def save_image(self, img):
         flag, img_name = True, ''
         try:
             img_suffix = img.filename.split('.')[-1]
@@ -146,7 +146,7 @@ class UserRegisterHandler(RegisterHandler):
             flag = False
         return flag, img_name
     
-    def remove_image(img):
+    def remove_image(self, img):
         flag = True
         try:
             shutil.rmtree(img)
