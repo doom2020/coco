@@ -22,7 +22,14 @@ class MysqlQuery(object):
         or_filter_condition = kwargs.get('or_filter_condition', {})
         order_by = kwargs.get('order_by', '')
         limit = kwargs.get('limit', '')
-        objs = db_model.query.filter_by(**and_filter_condition).all()
+        if and_filter_condition:
+            objs = db_model.query.filter_by(**and_filter_condition).all()
+        if or_filter_condition:
+            objs = db_model.query.filter_by(or_(**or_filter_condition)).all()
+        if order_by:
+            pass
+        if limit:
+            pass
         return objs
 
 

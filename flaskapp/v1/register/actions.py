@@ -35,6 +35,25 @@ class RegisterHandler(metaclass=ABCMeta):
 
 
 class HouseOwnerRegisterHandler(RegisterHandler):
+    def save_image(self, img):
+        flag, img_name = True, ''
+        try:
+            img_suffix = img.filename.split('.')[-1]
+            now = str(datetime.now())
+            img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
+            img.save(os.path.join(HOUSE_OWNER_IMAGE_PATH, img_name))
+        except Exception as e:
+            flag = False
+        return flag, img_name
+
+    def remove_image(self, img):
+        flag = True
+        try:
+            shutil.rmtree(img)
+        except Exception as e:
+            flag = False
+        return flag
+
     def query(self, *args, **kwargs):
         objs = MysqlQuery.query_filter(*args, **kwargs)
         return objs
@@ -43,8 +62,13 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         return Tools.encrypt_str(args[0])
 
     def add(self, *args, **kwargs):
+        img = args[7]
+        flag, img_name = self.save_image(img)
+        if not flag:
+            return False, CodeType.IMAGE_SAVE_FAILED, ''
+        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_house_owner_img/{img_name}'
         new_house_owner = HouseOwner(user_name=args[0], nick_name=args[1], password=args[2], phone=args[3],
-                                     wechat=args[4], id_card=args[5], gender=args[6], picture=args[7],
+                                     wechat=args[4], id_card=args[5], gender=args[6], picture=img_url,
                                      create_time=args[8], update_time=args[9])
         try:
             db.session.add(new_house_owner)
@@ -68,8 +92,10 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        objs = self.query(HouseOwner, **dict(and_filter_condition=and_filter_condition))
+        or_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
+        and_filter_condition = dict(is_delete=False)
+        objs = self.query(HouseOwner, **dict(or_filter_condition=or_filter_condition),
+                          **dict(and_filter_condition=and_filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -85,6 +111,25 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         
 
 class TenantRegisterHandler(RegisterHandler):
+    def save_image(self, img):
+        flag, img_name = True, ''
+        try:
+            img_suffix = img.filename.split('.')[-1]
+            now = str(datetime.now())
+            img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
+            img.save(os.path.join(TENANT_IMAGE_PATH, img_name))
+        except Exception as e:
+            flag = False
+        return flag, img_name
+
+    def remove_image(self, img):
+        flag = True
+        try:
+            shutil.rmtree(img)
+        except Exception as e:
+            flag = False
+        return flag
+
     def query(self, *args, **kwargs):
         objs = MysqlQuery.query_filter(*args, **kwargs)
         return objs
@@ -93,8 +138,13 @@ class TenantRegisterHandler(RegisterHandler):
         return Tools.encrypt_str(args[0])
 
     def add(self, *args, **kwargs):
+        img = args[7]
+        flag, img_name = self.save_image(img)
+        if not flag:
+            return False, CodeType.IMAGE_SAVE_FAILED, ''
+        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_tenant_img/{img_name}'
         new_tenant = Tenant(user_name=args[0], nick_name=args[1], password=args[2], phone=args[3],
-                            wechat=args[4], id_card=args[5], gender=args[6], picture=args[7],
+                            wechat=args[4], id_card=args[5], gender=args[6], picture=img_url,
                             create_time=args[8], update_time=args[9])
         try:
             db.session.add(new_tenant)
@@ -118,8 +168,10 @@ class TenantRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        and_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        objs = self.query(Tenant, **dict(and_filter_condition=and_filter_condition))
+        or_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
+        and_filter_condition = dict(is_delete=False)
+        objs = self.query(Tenant, **dict(or_filter_condition=or_filter_condition),
+                          **dict(and_filter_condition=and_filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
