@@ -1,4 +1,5 @@
 from werkzeug.utils import secure_filename
+from flask import request
 from flaskapp import param_check
 from flaskapp.enumeration import GenderEnum, PermissionEnum, RegisterEnum
 from flaskapp.app_log import LoggerHelp
@@ -198,3 +199,24 @@ def upload_file():
     file_name = md5(secure_filename(file.filename + now).encode('utf-8')).hexdigest() + '.' + file_suffix
     file.save(os.path.join(FILE_PATH, file_name))
     return file_name
+
+# content_type测试
+@index_bp.route('/get_data', methods=['GET', 'POST'])
+def get_data():
+    if request.method == 'GET':
+        name = request.args.get('name', '')
+        age = request.values.get('age', 3)
+        print(name)
+        print(age)
+        return jsonify(name=name, age=age)
+    if request.method == 'POST':
+        name = request.form.get('name', '')
+        age = request.values.get('age', '')
+        print(name)
+        print(age)
+        return jsonify(name=name, age=age)
+
+@index_bp.before_request
+def get_content_type():
+    print(request.content_type)
+
