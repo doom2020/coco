@@ -63,7 +63,7 @@ def get_house_owner_img(img_name):
     return send_file(img)
 
 
-@index_bp.route('/get_house_owner_img/<string:img_name>')
+@index_bp.route('/get_tenant_img/<string:img_name>')
 def get_tenant_img(img_name):
     img = os.path.join(TENANT_IMAGE_PATH, img_name + '.png')
     if not os.path.exists(img):

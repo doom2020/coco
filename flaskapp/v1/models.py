@@ -14,7 +14,8 @@ class HouseOwner(db.Model):
     id_card = db.Column(db.String(64), unique=True, nullable=False, index=True)
     gender = db.Column(db.Enum(GenderEnum), nullable=False, default=GenderEnum.man)
     score = db.Column(db.DECIMAL(5, 2), nullable=False, default=100.00)
-    picture = db.Column(db.String(256), unique=False, nullable=False, default='/')
+    picture = db.Column(db.String(256), unique=False, nullable=False,
+                        default='http://127.0.0.1:5000/api/v1/get_house_owner_img/ho_default.png')
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
@@ -45,7 +46,8 @@ class Tenant(db.Model):
     id_card = db.Column(db.String(64), unique=True, nullable=False, index=True)
     gender = db.Column(db.Enum(GenderEnum), nullable=False, default=GenderEnum.man)
     score = db.Column(db.DECIMAL(5, 2), nullable=False, default=100.00)
-    picture = db.Column(db.String(256), unique=False, nullable=False, default='/')
+    picture = db.Column(db.String(256), unique=False, nullable=False,
+                        default='http://127.0.0.1:5000/api/v1/get_tenant_img/t_default.png')
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)
@@ -70,7 +72,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(2048), nullable=False)
-    picture = db.Column(db.String(256), unique=False, nullable=False, default='/')
+    picture = db.Column(db.String(256), unique=False, nullable=False,
+                        default='http://127.0.0.1:5000/api/v1/get_user_img/u_default.png')
     create_time = db.Column(db.DateTime, nullable=False)
     update_time = db.Column(db.DateTime, nullable=False)
     is_delete = db.Column(db.Boolean(), nullable=False, default=0)

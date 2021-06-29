@@ -14,11 +14,12 @@ register_bp = Blueprint('register_api', __name__, url_prefix='/api/v1')
 #     if content_type != 'application/json':
 #         return f'content_type error: need (application/json) but get: ({content_type})'
 
+
 @register_bp.route('/register', methods=['POST'])
 def register_view():
     # 注册类型参数校验
     param_check = ParamCheck()
-    param_check.params_add('register_type', required=True, p_type='str', err_msg='register_type is error')
+    param_check.params_add('register_type', required=True, p_type='str', err_msg='')
     flag, cm, msg = param_check.params_parser()
     if not flag:
         return CreateResponse(cm, message=msg).response()
@@ -28,9 +29,9 @@ def register_view():
     if not flag:
         return CreateResponse(cm, message=msg).response()
     # 注册信息参数校验
-    param_check.params_add('user_name', required=True, p_type='str', err_msg='user_name error')
-    param_check.params_add('password', required=True, p_type='str', err_msg='password error')
-    param_check.params_add('picture', required=False, p_type='image', err_msg='picture error')
+    param_check.params_add('user_name', required=True, p_type='str', err_msg='')
+    param_check.params_add('password', required=True, p_type='str', err_msg='')
+    param_check.params_add('picture', required=False, p_type='image', err_msg='')
     if register_type == RegisterEnum.user.value:
         flag, cm, msg = param_check.params_parser()
         if not flag:
