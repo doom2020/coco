@@ -1,6 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from sys import argv
-import flaskapp
 from flaskapp.http_response import CodeType
 from flaskapp.tools import Tools
 from flaskapp.mysql_query import MysqlQuery
@@ -11,7 +9,6 @@ from flaskapp import log
 from flaskapp import db
 from hashlib import md5
 from werkzeug.utils import secure_filename
-import os
 from flaskapp.settings import *
 import shutil
 
@@ -22,15 +19,15 @@ class RegisterHandler(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def query(self, *args, **kwargs):
+    def query(self, **kwargs):
         pass
 
     @abstractmethod
-    def encrypt(self, *args, **kwargs):
+    def encrypt(self, *args):
         pass
 
     @abstractmethod
-    def add(self, *args, **kwargs):
+    def add(self, *args):
         pass
 
 
@@ -54,22 +51,21 @@ class HouseOwnerRegisterHandler(RegisterHandler):
             flag = False
         return flag
 
-    def query(self, *args, **kwargs):
-        objs = MysqlQuery.query_filter(*args, **kwargs)
+    def query(self, **kwargs):
+        objs = MysqlQuery.query_filter(**kwargs)
         return objs
 
-    def encrypt(self, *args, **kwargs):
-        return Tools.encrypt_str(args[0])
+    def encrypt(self, password):
+        return Tools.encrypt_str(password)
 
-    def add(self, *args, **kwargs):
-        img = args[7]
-        flag, img_name = self.save_image(img)
+    def add(self, user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture, create_time, update_time):
+        flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
         img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_house_owner_img/{img_name}'
-        new_house_owner = HouseOwner(user_name=args[0], nick_name=args[1], password=args[2], phone=args[3],
-                                     wechat=args[4], id_card=args[5], gender=args[6], picture=img_url,
-                                     create_time=args[8], update_time=args[9])
+        new_house_owner = HouseOwner(user_name=user_name, nick_name=nick_name, password=encrypt_pwd, phone=phone,
+                                     wechat=wechat, id_card=id_card, gender=gender, picture=img_url,
+                                     create_time=create_time, update_time=update_time)
         try:
             db.session.add(new_house_owner)
             db.session.commit()
@@ -92,10 +88,10 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        or_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        and_filter_condition = dict(is_delete=False)
-        objs = self.query(HouseOwner, **dict(or_filter_condition=or_filter_condition),
-                          **dict(and_filter_condition=and_filter_condition))
+        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
+        and_query_condition = dict(is_delete=False)
+        objs = self.query(**dict(db_model=HouseOwner, or_query_condition=or_query_condition,
+                                 and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -130,22 +126,21 @@ class TenantRegisterHandler(RegisterHandler):
             flag = False
         return flag
 
-    def query(self, *args, **kwargs):
-        objs = MysqlQuery.query_filter(*args, **kwargs)
+    def query(self, **kwargs):
+        objs = MysqlQuery.query_filter(**kwargs)
         return objs
 
-    def encrypt(self, *args, **kwargs):
-        return Tools.encrypt_str(args[0])
+    def encrypt(self, password):
+        return Tools.encrypt_str(password)
 
-    def add(self, *args, **kwargs):
-        img = args[7]
-        flag, img_name = self.save_image(img)
+    def add(self, user_name, nick_name, encrypt_pwd, phone, wechat, id_card, gender, picture, create_time, update_time):
+        flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
         img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_tenant_img/{img_name}'
-        new_tenant = Tenant(user_name=args[0], nick_name=args[1], password=args[2], phone=args[3],
-                            wechat=args[4], id_card=args[5], gender=args[6], picture=img_url,
-                            create_time=args[8], update_time=args[9])
+        new_tenant = Tenant(user_name=user_name, nick_name=nick_name, password=encrypt_pwd, phone=phone, wechat=wechat,
+                            id_card=id_card, gender=gender, picture=img_url, create_time=create_time,
+                            update_time=update_time)
         try:
             db.session.add(new_tenant)
             db.session.commit()
@@ -156,7 +151,7 @@ class TenantRegisterHandler(RegisterHandler):
         log.write('add new_tenant success', level='info')
         return True, CodeType.SUCCESS_RESPONSE, ''
 
-    def register(self, *args, **kwargs):
+    def register(self, **kwargs):
         # 参数获取
         user_name = kwargs['user_name']
         password = kwargs['password']
@@ -168,10 +163,10 @@ class TenantRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        or_filter_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
-        and_filter_condition = dict(is_delete=False)
-        objs = self.query(Tenant, **dict(or_filter_condition=or_filter_condition),
-                          **dict(and_filter_condition=and_filter_condition))
+        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
+        and_query_condition = dict(is_delete=False)
+        objs = self.query(**dict(db_model=Tenant, or_query_condition=or_query_condition,
+                                 and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -206,20 +201,20 @@ class UserRegisterHandler(RegisterHandler):
             flag = False
         return flag
 
-    def query(self, *args, **kwargs):
-        objs = MysqlQuery.query_filter(*args, **kwargs)
+    def query(self, **kwargs):
+        objs = MysqlQuery.query_filter(**kwargs)
         return objs
 
-    def encrypt(self, *args, **kwargs):
-        return Tools.encrypt_str(args[0])
+    def encrypt(self, password):
+        return Tools.encrypt_str(password)
 
-    def add(self, *args, **kwargs):
-        img = args[2]
-        flag, img_name = self.save_image(img)
+    def add(self, user_name, encrypt_pwd, picture, create_time, update_time):
+        flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
         img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_user_img/{img_name}'
-        new_user = User(user_name=args[0], password=args[1], picture=img_url, create_time=args[3], update_time=args[4])
+        new_user = User(user_name=user_name, password=encrypt_pwd, picture=img_url, create_time=create_time,
+                        update_time=update_time)
         try:
             db.session.add(new_user)
             db.session.commit()
@@ -235,14 +230,14 @@ class UserRegisterHandler(RegisterHandler):
         return True, CodeType.SUCCESS_RESPONSE, ''
 
     # 参数获取
-    def register(self, *args, **kwargs):
+    def register(self, **kwargs):
         user_name = kwargs['user_name']
         password = kwargs['password']
         picture = kwargs['picture']
         update_time = create_time = datetime.now()
         # 数据库查询`user_name`是否已经存在
-        and_filter_condition = dict(user_name=user_name, is_delete=False)
-        objs = self.query(User, **dict(and_filter_condition=and_filter_condition))
+        and_query_condition = dict(user_name=user_name, is_delete=False)
+        objs = self.query(**dict(db_model=User, and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密

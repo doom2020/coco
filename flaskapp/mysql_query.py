@@ -12,27 +12,25 @@ class MysqlQuery(object):
         return
 
     @classmethod
-    def query_filter(cls, *args, **kwargs):
+    def query_filter(cls, **kwargs):
         """
-        位置传参模型
         字典传参,查询条件
         """
-        db_model = args[0]
-        and_filter_condition = kwargs.get('and_filter_condition', {})
-        or_filter_condition = kwargs.get('or_filter_condition', {})
+        db_model = kwargs.get('db_model')
         order_by = kwargs.get('order_by', '')
         limit = kwargs.get('limit', '')
         offset = kwargs.get('offset', '')
-        slice = kwargs.get('slice', '')
         query_type = kwargs.get('query_type', 'all')
         group_by = kwargs.get('group_by', '')
+        and_query_condition = kwargs.get('and_query_condition', {})
+        or_query_condition = kwargs.get('or_query_condition', {})
         query_content = None
-        if and_filter_condition:
-            query_content = db_model.query.filter_by(**and_filter_condition)
-        if or_filter_condition:
-            query_content = db_model.query.filter_by(or_(**or_filter_condition))
-        if and_filter_condition and or_filter_condition:
-            query_content = db_model.query.filter_by(and_(**and_filter_condition, or_(**or_filter_condition)))
+        if and_query_condition:
+            query_content = db_model.query.filter_by(**and_query_condition)
+        if or_query_condition:
+            query_content = db_model.query.filter_by(or_(**or_query_condition))
+        if and_query_condition and or_query_condition:
+            query_content = db_model.query.filter_by(and_(and_query_condition, or_(or_query_condition)))
         if order_by:
             pass
         if limit:
