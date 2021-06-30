@@ -22,15 +22,36 @@ class MysqlQuery(object):
         or_filter_condition = kwargs.get('or_filter_condition', {})
         order_by = kwargs.get('order_by', '')
         limit = kwargs.get('limit', '')
+        offset = kwargs.get('offset', '')
+        slice = kwargs.get('slice', '')
+        query_type = kwargs.get('query_type', 'all')
+        group_by = kwargs.get('group_by', '')
+        query_content = None
         if and_filter_condition:
-            objs = db_model.query.filter_by(**and_filter_condition).all()
+            query_content = db_model.query.filter_by(**and_filter_condition)
         if or_filter_condition:
-            objs = db_model.query.filter_by(or_(**or_filter_condition)).all()
+            query_content = db_model.query.filter_by(or_(**or_filter_condition))
+        if and_filter_condition and or_filter_condition:
+            query_content = db_model.query.filter_by(and_(**and_filter_condition, or_(**or_filter_condition)))
         if order_by:
             pass
         if limit:
             pass
-        return objs
+        if offset:
+            pass
+        if slice:
+            pass
+        if group_by:
+            pass
+        if query_type == 'all':
+            query_obj = query_content.all()
+        elif query_type == 'first':
+            query_obj = query_content.first()
+        elif query_type == 'one':
+            query_obj = query_content.one()
+        else:
+            query_obj = None
+        return query_obj
 
 
 
