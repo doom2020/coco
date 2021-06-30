@@ -15,6 +15,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_BINDS = {
         'users': 'mysql://root:123456@127.0.0.1/users'
     }
+    SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 

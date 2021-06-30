@@ -32,22 +32,29 @@ class RegisterHandler(metaclass=ABCMeta):
 
 
 class HouseOwnerRegisterHandler(RegisterHandler):
-    def save_image(self, img):
+    @staticmethod
+    def save_image(img):
         flag, img_name = True, ''
         try:
             img_suffix = img.filename.split('.')[-1]
             now = str(datetime.now())
             img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
             img.save(os.path.join(HOUSE_OWNER_IMAGE_PATH, img_name))
-        except Exception as e:
+        except IndexError as e:
+            log.write('file name is invalid: %s' % e, level='error')
+            flag = False
+        except OSError as e:
+            log.write('file save failed: %s' % e, level='error')
             flag = False
         return flag, img_name
 
-    def remove_image(self, img):
+    @staticmethod
+    def remove_image(img):
         flag = True
         try:
             shutil.rmtree(img)
-        except Exception as e:
+        except OSError as e:
+            log.write('remove file failed: %s' % e, level='error')
             flag = False
         return flag
 
@@ -62,7 +69,7 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
-        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_house_owner_img/{img_name}'
+        img_url = f'{HTTP_PROTOCOL}://{REMOTE_SERVER_IP}:{SERVER_PORT}/api/v1/get_house_owner_img/{img_name}'
         new_house_owner = HouseOwner(user_name=user_name, nick_name=nick_name, password=encrypt_pwd, phone=phone,
                                      wechat=wechat, id_card=id_card, gender=gender, picture=img_url,
                                      create_time=create_time, update_time=update_time)
@@ -88,9 +95,9 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card, is_delete=False)
-        and_query_condition = dict(is_delete=False)
-        objs = self.query(**dict(db_model=HouseOwner, or_query_condition=or_query_condition,
+        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
+        and_query_condition = dict(is_delete=0)
+        objs = self.query(**dict(db_model=HouseOwner, query_type='all', or_query_condition=or_query_condition,
                                  and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
@@ -107,22 +114,29 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         
 
 class TenantRegisterHandler(RegisterHandler):
-    def save_image(self, img):
+    @staticmethod
+    def save_image(img):
         flag, img_name = True, ''
         try:
             img_suffix = img.filename.split('.')[-1]
             now = str(datetime.now())
             img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
             img.save(os.path.join(TENANT_IMAGE_PATH, img_name))
-        except Exception as e:
+        except IndexError as e:
+            log.write('file name is invalid: %s' % e, level='error')
+            flag = False
+        except OSError as e:
+            log.write('file save failed: %s' % e, level='error')
             flag = False
         return flag, img_name
 
-    def remove_image(self, img):
+    @staticmethod
+    def remove_image(img):
         flag = True
         try:
             shutil.rmtree(img)
-        except Exception as e:
+        except OSError as e:
+            log.write('remove file failed: %s' % e, level='error')
             flag = False
         return flag
 
@@ -137,7 +151,7 @@ class TenantRegisterHandler(RegisterHandler):
         flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
-        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_tenant_img/{img_name}'
+        img_url = f'{HTTP_PROTOCOL}://{REMOTE_SERVER_IP}:{SERVER_PORT}/api/v1/get_tenant_img/{img_name}'
         new_tenant = Tenant(user_name=user_name, nick_name=nick_name, password=encrypt_pwd, phone=phone, wechat=wechat,
                             id_card=id_card, gender=gender, picture=img_url, create_time=create_time,
                             update_time=update_time)
@@ -165,7 +179,7 @@ class TenantRegisterHandler(RegisterHandler):
         # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
         or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
         and_query_condition = dict(is_delete=False)
-        objs = self.query(**dict(db_model=Tenant, or_query_condition=or_query_condition,
+        objs = self.query(**dict(db_model=Tenant, query_type='all', or_query_condition=or_query_condition,
                                  and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
@@ -182,22 +196,29 @@ class TenantRegisterHandler(RegisterHandler):
 
 
 class UserRegisterHandler(RegisterHandler):
-    def save_image(self, img):
+    @staticmethod
+    def save_image(img):
         flag, img_name = True, ''
         try:
             img_suffix = img.filename.split('.')[-1]
             now = str(datetime.now())
             img_name = md5(secure_filename(img.filename + now).encode('utf-8')).hexdigest() + '.' + img_suffix
             img.save(os.path.join(USER_IMAGE_PATH, img_name))
-        except Exception as e:
+        except IndexError as e:
+            log.write('file name is invalid: %s' % e, level='error')
+            flag = False
+        except OSError as e:
+            log.write('file save failed: %s' % e, level='error')
             flag = False
         return flag, img_name
-    
-    def remove_image(self, img):
+
+    @staticmethod
+    def remove_image(img):
         flag = True
         try:
             shutil.rmtree(img)
-        except Exception as e:
+        except OSError as e:
+            log.write('remove file failed: %s' % e, level='error')
             flag = False
         return flag
 
@@ -212,7 +233,7 @@ class UserRegisterHandler(RegisterHandler):
         flag, img_name = self.save_image(picture)
         if not flag:
             return False, CodeType.IMAGE_SAVE_FAILED, ''
-        img_url = f'http://127.0.0.1:{SERVER_PORT}/api/v1/get_user_img/{img_name}'
+        img_url = f'{HTTP_PROTOCOL}://{REMOTE_SERVER_IP}:{SERVER_PORT}/api/v1/get_user_img/{img_name}'
         new_user = User(user_name=user_name, password=encrypt_pwd, picture=img_url, create_time=create_time,
                         update_time=update_time)
         try:
@@ -237,7 +258,7 @@ class UserRegisterHandler(RegisterHandler):
         update_time = create_time = datetime.now()
         # 数据库查询`user_name`是否已经存在
         and_query_condition = dict(user_name=user_name, is_delete=False)
-        objs = self.query(**dict(db_model=User, and_query_condition=and_query_condition))
+        objs = self.query(**dict(db_model=User, query_type='all', and_query_condition=and_query_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密

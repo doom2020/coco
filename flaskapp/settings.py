@@ -15,6 +15,12 @@ LOG_FILE = os.path.join(LOG_PATH, 'flaskapp.log')
 
 # 服务ip地址
 SERVER_IP = '0.0.0.0'
+# 服务地址
+REMOTE_SERVER_IP = '127.0.0.1'
+# http协议
+HTTP_PROTOCOL = 'http'
+# https协议
+HTTPS_PROTOCOL = 'https'
 # 服务端口
 SERVER_PORT = 5000 if DEBUG_MODE else 8000
 
