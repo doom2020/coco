@@ -30,9 +30,6 @@ class HouseOwner(db.Model):
                     ret_dict[key] = value
         return ret_dict
 
-    def __str__(self):
-        return self.id
-
 
 class Tenant(db.Model):
     __bind_key__ = 'users'
@@ -62,9 +59,6 @@ class Tenant(db.Model):
                     ret_dict[key] = value
         return ret_dict
 
-    def __str__(self):
-        return self.id
-
 
 class User(db.Model):
     __bind_key__ = 'users'
@@ -88,9 +82,6 @@ class User(db.Model):
                     ret_dict[key] = value
         return ret_dict
 
-    def __str__(self):
-        return self.id
-
 
 class Role(db.Model):
     __bind_key__ = 'users'
@@ -110,9 +101,6 @@ class Role(db.Model):
                 else:
                     ret_dict[key] = value
         return ret_dict
-
-    def __str__(self):
-        return self.id
 
 
 class Menu(db.Model):
@@ -135,9 +123,6 @@ class Menu(db.Model):
                     ret_dict[key] = value
         return ret_dict
 
-    def __str__(self):
-        return self.id
-
 
 class UserRole(db.Model):
     __bind_key__ = 'users'
@@ -159,9 +144,6 @@ class UserRole(db.Model):
                     ret_dict[key] = value
         return ret_dict
 
-    def __str__(self):
-        return self.id
-
 
 class RoleMenu(db.Model):
     __bind_key__ = 'users'
@@ -182,6 +164,3 @@ class RoleMenu(db.Model):
                 else:
                     ret_dict[key] = value
         return ret_dict
-
-    def __str__(self):
-        return self.id

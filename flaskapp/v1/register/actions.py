@@ -11,6 +11,7 @@ from hashlib import md5
 from werkzeug.utils import secure_filename
 from flaskapp.settings import *
 import shutil
+from sqlalchemy import and_, or_
 
 
 class RegisterHandler(metaclass=ABCMeta):
@@ -94,11 +95,20 @@ class HouseOwnerRegisterHandler(RegisterHandler):
         id_card = kwargs['id_card']
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
-        # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
-        and_query_condition = dict(is_delete=0)
-        objs = self.query(**dict(db_model=HouseOwner, query_type='all', or_query_condition=or_query_condition,
-                                 and_query_condition=and_query_condition))
+        # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在,构造查询条件
+        filter_condition = {
+            and_(
+                and_(
+                    HouseOwner.is_delete == 0,
+                ),
+                or_(
+                    HouseOwner.nick_name == nick_name,
+                    HouseOwner.phone == phone,
+                    HouseOwner.id_card == id_card
+                )
+            )
+        }
+        objs = self.query(**dict(db_model=HouseOwner, query_type='all', filter_condition=filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -176,11 +186,20 @@ class TenantRegisterHandler(RegisterHandler):
         id_card = kwargs['id_card']
         gender = kwargs['gender']
         update_time = create_time = datetime.now()
-        # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在
-        or_query_condition = dict(nick_name=nick_name, phone=phone, id_card=id_card)
-        and_query_condition = dict(is_delete=False)
-        objs = self.query(**dict(db_model=Tenant, query_type='all', or_query_condition=or_query_condition,
-                                 and_query_condition=and_query_condition))
+        # 数据库查询`nick_name`, `phone`, `id_card`是否已经存在,构造查询条件
+        filter_condition = {
+            and_(
+                and_(
+                    Tenant.is_delete == 0,
+                ),
+                or_(
+                    Tenant.nick_name == nick_name,
+                    Tenant.phone == phone,
+                    Tenant.id_card == id_card
+                )
+            )
+        }
+        objs = self.query(**dict(db_model=Tenant, query_type='all', filter_condition=filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
@@ -256,9 +275,14 @@ class UserRegisterHandler(RegisterHandler):
         password = kwargs['password']
         picture = kwargs['picture']
         update_time = create_time = datetime.now()
-        # 数据库查询`user_name`是否已经存在
-        and_query_condition = dict(user_name=user_name, is_delete=False)
-        objs = self.query(**dict(db_model=User, query_type='all', and_query_condition=and_query_condition))
+        # 数据库查询`user_name`是否已经存在,构造查询条件
+        filter_condition = {
+            and_(
+                User.user_name == user_name,
+                User.is_delete == 0
+            )
+        }
+        objs = self.query(**dict(db_model=User, query_type='all', filter_condition=filter_condition))
         if objs:
             return False, CodeType.DATABASE_QUERY_EXIST, ''
         # 进行密码加密
