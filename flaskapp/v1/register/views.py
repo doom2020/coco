@@ -3,7 +3,6 @@ from flaskapp.http_response import CreateResponse
 from flaskapp.param_check import ParamCheck, SpecialCheck
 from flask import Blueprint
 from flaskapp.enumeration import RegisterEnum
-from flask import request
 
 
 register_bp = Blueprint('register_api', __name__, url_prefix='/api/v1')
@@ -40,8 +39,8 @@ def register_view():
         password = param_check.get_argv('password')
         picture = param_check.get_argv('picture')
         # 逻辑处理
-        kwargs = dict(user_name=user_name, password=password, picture=picture)
-        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**kwargs)
+        param_dict = dict(user_name=user_name, password=password, picture=picture)
+        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**param_dict)
         return CreateResponse(cm, message=msg).response()
     else:
         param_check.params_add('nick_name', required=True, p_type='str', err_msg='')
@@ -65,8 +64,8 @@ def register_view():
         if not flag:
             return CreateResponse(cm, message=msg).response()
         # 逻辑处理
-        kwargs = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name,
-                      phone=phone, wechat=wechat, id_card=id_card, gender=gender)
-        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**kwargs)
+        param_dict = dict(user_name=user_name, password=password, picture=picture, nick_name=nick_name, phone=phone,
+                          wechat=wechat, id_card=id_card, gender=gender)
+        flag, cm, msg = RegisterFactory.deal_with_register(register_type).register(**param_dict)
         return CreateResponse(cm, message=msg).response()
 

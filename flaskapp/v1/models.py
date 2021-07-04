@@ -164,3 +164,24 @@ class RoleMenu(db.Model):
                 else:
                     ret_dict[key] = value
         return ret_dict
+
+
+class Session(db.Model):
+    __bind_key__ = 'users'
+    __tablename__ = 'session'
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.String(2048), nullable=False, unique=True)
+    user_name = db.Column(db.String(64), nullable=False)
+    create_time = db.Column(db.DateTime, nullable=False)
+    update_time = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        ret_dict = dict()
+        for key, value in self.__dict__.items():
+            if not key.startswith('_'):
+                if key.endswith('time'):
+                    ret_dict[key] = str(value)
+                else:
+                    ret_dict[key] = value
+        return ret_dict
+

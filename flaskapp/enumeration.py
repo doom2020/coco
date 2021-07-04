@@ -20,5 +20,10 @@ class RegisterEnum(Enum):
     user = 'user'
 
 
+class LoginMethodEnum(Enum):
+    account = 'account'
+    phone = 'phone'
+
+
 if __name__ == "__main__":
     print(RegisterEnum.__dict__.keys())

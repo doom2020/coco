@@ -36,9 +36,11 @@ def create_app(debug_mode=False):
     # 导入视图
     from flaskapp.v1.index.views import index_bp
     from flaskapp.v1.register.views import register_bp
+    from flaskapp.v1.login.views import login_bp
     # 注册蓝图
     app.register_blueprint(index_bp)
     app.register_blueprint(register_bp)
+    app.register_blueprint(login_bp)
     log.write('App is running', level='info')
     return app
 

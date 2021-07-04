@@ -1,4 +1,3 @@
-from flaskapp.app_log import LoggerHelp
 from flaskapp.settings import ALLOW_FILE_EXTENSIONS, ALLOW_IMAGE_EXTENSIONS
 from flask import request
 from flaskapp.http_response import CodeType
@@ -293,6 +292,23 @@ class SpecialCheck(object):
     def check_register_type(self):
         value_set = set()
         for key in RegisterEnum.__dict__.keys():
+            if not key.startswith('_'):
+                value_set.add(key)
+        if self.argv not in value_set:
+            return self.flag, CodeType.ARGV_STR_INVALID_ERROR, self.err_msg
+        self.flag = True
+        return self.flag, CodeType.SUCCESS_RESPONSE, ''
+
+    def check_login_type(self):
+        """
+        同register
+        :return:
+        """
+        return self.check_register_type()
+
+    def check_login_method(self):
+        value_set = set()
+        for key in LoginMethodEnum.__dict__.keys():
             if not key.startswith('_'):
                 value_set.add(key)
         if self.argv not in value_set:

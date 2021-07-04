@@ -11,6 +11,7 @@ from flaskapp.v1.models import HouseOwner, Tenant, User
 from flaskapp import create_app, log, db
 from datetime import datetime
 from hashlib import md5
+from flaskapp.check_code import gen_image
 
 
 index_bp = Blueprint('index_api', __name__, url_prefix='/api/v1')
@@ -231,6 +232,13 @@ def get_data():
         print(name)
         print(age)
         return jsonify(name=name, age=age)
+
+
+# 验证码测试
+@index_bp.route('/get_check_code', methods=['GET'])
+def get_check_code():
+    code_image, code_char = gen_image()
+    return send_file(code_image)
 
 
 @index_bp.before_request
