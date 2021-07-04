@@ -43,10 +43,10 @@ def login_view():
         param_check.params_add('nick_name', required=True, p_type='str', err_msg='')
         param_check.params_add('password', required=True, p_type='str', err_msg='')
         param_check.params_add('check_code', required=True, p_type='str', err_msg='')
-        nick_name = param_check.get_argv('nick_name')
+        user_name = param_check.get_argv('user_name')
         password = param_check.get_argv('password')
         check_code = param_check.get_argv('check_code')
-        param_dict = dict(nick_name=nick_name, password=password, check_code=check_code)
+        param_dict = dict(user_name=user_name, password=password, check_code=check_code)
         flag, cm, msg = LoginFactory().deal_with_login(login_type).login_by_account(**param_dict)
         return CreateResponse(cm, message=msg).response()
     else:

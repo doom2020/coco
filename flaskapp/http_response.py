@@ -82,6 +82,9 @@ class CodeType(object):
     TOOL_ENCRYPT_STR_BLANK = CodeMessage(code=3101, message='encrypt str is blank')
     TOOL_ENCRYPT_STR_TYPE_ERROR = CodeMessage(code=3102, message='encrypt argv type is not str')
 
+    # 验证码相关响应码
+    CODE_IS_ERROR = CodeMessage(code=4101, message='code is error')
+
     # 通用响应码
     IMAGE_FILE_IS_NOT_EXIST = CodeMessage(code=9101, message='image file is not exist')
     ARGV_IS_NOT_FILE = CodeMessage(code=9102, message='argv is not file')
