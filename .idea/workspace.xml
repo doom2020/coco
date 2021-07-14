@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a078c9d1-b03c-4fd5-b908-7bc5c8f36b9e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flaskapp/v1/register/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskapp/v1/register/actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flaskapp/check_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/flaskapp/check_code.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,85 +12,176 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1325">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4225">
-              <caret line="170" selection-start-line="170" selection-end-line="170" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1300">
-              <caret line="56" column="81" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/actions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="44" column="24" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/logout/views.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/actions.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/views.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/actions.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.4784217">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="4175">
+                  <caret line="239" column="39" lean-forward="true" selection-start-line="239" selection-start-column="39" selection-end-line="239" selection-end-column="39" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/mysql_query.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="507">
+                  <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#0#32#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="765">
+                  <caret line="67" column="72" selection-start-line="67" selection-start-column="72" selection-end-line="67" selection-end-column="72" />
+                  <folding>
+                    <element signature="e#0#56#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/settings.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1125">
+                  <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/actions.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="7650">
+                  <caret line="306" column="40" selection-start-line="306" selection-start-column="40" selection-end-line="306" selection-end-column="40" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="409">
+                  <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+                  <folding>
+                    <element signature="e#0#27#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/param_check.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-6425">
+                  <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/http_response.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1825">
+                  <caret line="85" column="67" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/enumeration.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="650">
+                  <caret line="26" selection-start-line="26" selection-end-line="26" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/actions.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="734">
+                  <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/check_code.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="25">
+                  <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+                  <folding>
+                    <element signature="e#23#79#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/__init__.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1050">
+                  <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+                  <folding>
+                    <element signature="e#0#23#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/flaskapp/config.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="425">
+                  <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/flaskapp/v1/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="300">
+                  <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+                  <folding>
+                    <element signature="e#0#23#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -102,15 +193,20 @@
         <option value="$PROJECT_DIR$/flaskapp/app_log.py" />
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/flaskapp/tools.py" />
-        <option value="$PROJECT_DIR$/flaskapp/param_check.py" />
-        <option value="$PROJECT_DIR$/flaskapp/http_response.py" />
-        <option value="$PROJECT_DIR$/flaskapp/enumeration.py" />
         <option value="$PROJECT_DIR$/flaskapp/config.py" />
-        <option value="$PROJECT_DIR$/flaskapp/__init__.py" />
-        <option value="$PROJECT_DIR$/flaskapp/v1/models.py" />
-        <option value="$PROJECT_DIR$/flaskapp/v1/register/views.py" />
-        <option value="$PROJECT_DIR$/flaskapp/v1/index/views.py" />
+        <option value="$PROJECT_DIR$/flaskapp/mysql_query.py" />
         <option value="$PROJECT_DIR$/flaskapp/v1/register/actions.py" />
+        <option value="$PROJECT_DIR$/flaskapp/v1/models.py" />
+        <option value="$PROJECT_DIR$/flaskapp/__init__.py" />
+        <option value="$PROJECT_DIR$/flaskapp/enumeration.py" />
+        <option value="$PROJECT_DIR$/flaskapp/v1/register/views.py" />
+        <option value="$PROJECT_DIR$/flaskapp/param_check.py" />
+        <option value="$PROJECT_DIR$/flaskapp/settings.py" />
+        <option value="$PROJECT_DIR$/flaskapp/v1/index/views.py" />
+        <option value="$PROJECT_DIR$/flaskapp/v1/login/views.py" />
+        <option value="$PROJECT_DIR$/flaskapp/http_response.py" />
+        <option value="$PROJECT_DIR$/flaskapp/v1/login/actions.py" />
+        <option value="$PROJECT_DIR$/flaskapp/check_code.py" />
       </list>
     </option>
   </component>
@@ -125,7 +221,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -148,6 +243,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -183,16 +279,56 @@
       <workItem from="1624547974038" duration="450000" />
       <workItem from="1624548463501" duration="385000" />
       <workItem from="1624551629255" duration="197000" />
+      <workItem from="1625058985065" duration="8157000" />
+      <workItem from="1625098055109" duration="11284000" />
+      <workItem from="1625267382219" duration="28713000" />
     </task>
+    <task id="LOCAL-00001" summary="优化查询">
+      <created>1625064213940</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1625064213940</updated>
+    </task>
+    <task id="LOCAL-00002" summary="查询方法优化">
+      <created>1625071317407</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1625071317407</updated>
+    </task>
+    <task id="LOCAL-00003" summary="查询方法修改">
+      <created>1625275135760</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1625275135760</updated>
+    </task>
+    <task id="LOCAL-00004" summary="1.添加验证码模块&#10;2.更新登录模块逻辑">
+      <created>1625372188563</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625372188563</updated>
+    </task>
+    <task id="LOCAL-00005" summary="1.更新登录逻辑">
+      <created>1625390694368</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625390694368</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1479000" />
+    <option name="totallyTimeSpent" value="49635000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17910448" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13539445" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -204,7 +340,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.29934925" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.23644252" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="11" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
@@ -217,6 +353,14 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="优化查询" />
+    <MESSAGE value="查询方法优化" />
+    <MESSAGE value="查询方法修改" />
+    <MESSAGE value="1.添加验证码模块&#10;2.更新登录模块逻辑" />
+    <MESSAGE value="1.更新登录逻辑" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.更新登录逻辑" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -249,29 +393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/settings.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/param_check.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5200">
-          <caret line="212" selection-start-line="212" selection-end-line="212" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/mysql_query.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/http_response.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flaskapp/app_log.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="725">
@@ -282,24 +403,134 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/enumeration.py">
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/actions.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/logout/actions.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/logout/views.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/sqlalchemy/sql/expression.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="182">
+          <caret line="190" column="41" lean-forward="true" selection-start-line="190" selection-start-column="41" selection-end-line="190" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/config.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/sqlalchemy/sql/elements.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="-1618">
+          <caret line="2445" column="8" selection-start-line="2445" selection-start-column="8" selection-end-line="2445" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/mysql_query.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/static/image/check_code/2021-07-04_N.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4175">
+          <caret line="239" column="39" lean-forward="true" selection-start-line="239" selection-start-column="39" selection-end-line="239" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/param_check.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6425">
+          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/http_response.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1825">
+          <caret line="85" column="67" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="67" column="72" selection-start-line="67" selection-start-column="72" selection-end-line="67" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7650">
+          <caret line="306" column="40" selection-start-line="306" selection-start-column="40" selection-end-line="306" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/enumeration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/check_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+          <folding>
+            <element signature="e#23#79#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flaskapp/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1325">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="1050">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -308,53 +539,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flaskapp/v1/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4225">
-          <caret line="170" selection-start-line="170" selection-end-line="170" />
+        <state relative-caret-position="300">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/views.py">
+    <entry file="file://$PROJECT_DIR$/flaskapp.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flaskapp/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1300">
-          <caret line="56" column="81" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/actions.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/login/views.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/actions.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/index/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/logout/actions.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/logout/views.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flaskapp/v1/register/actions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="44" column="24" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="425">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
         </state>
       </provider>
     </entry>

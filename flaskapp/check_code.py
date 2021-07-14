@@ -1,5 +1,5 @@
 """
-制作单个验证码带标注500张
+制作数字中文验证码
 """
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import random
