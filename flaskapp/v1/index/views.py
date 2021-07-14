@@ -237,8 +237,22 @@ def get_data():
 # 验证码测试
 @index_bp.route('/get_check_code', methods=['GET'])
 def get_check_code():
+    from flask import current_app
     code_image, code_char = gen_image()
+    print(code_char)
+    current_app.config['code_char'] = code_char
     return send_file(code_image)
+
+
+@index_bp.route('/valid_check_code', methods=['GET'])
+def valid_check_code():
+    from flask import current_app
+    code_char = request.args.get('code_char')
+    print(code_char)
+    if code_char != current_app.config.get('code_char', ''):
+        return "验证码不正确"
+    else:
+        return "验证成功"
 
 
 @index_bp.before_request
